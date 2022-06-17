@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+.mark-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 14px;
+    background: #0087FF;
+    margin-right: 12px;
+  }
+}
