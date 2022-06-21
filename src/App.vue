@@ -1,13 +1,14 @@
 <template>
   <div id="app">
-    <div class="mark-title">hello peanut-vue</div>
+    <todoList></todoList>
   </div>
 </template>
 
 <script>
+import todoList from "./components/todoList"
 
 export default {
   name: 'App',
-  components: {}
+  components: {todoList}
 }
 </script>
