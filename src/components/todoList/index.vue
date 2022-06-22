@@ -11,6 +11,7 @@
                             :key="item.workCode">
                         <todo-card
                             v-bind="item"
+                            :class="{'active':activateCard === item.workCode}"
                             @click.native="handleCardClick(item.workCode)"
                         ></todo-card>
                     </el-col>
@@ -288,6 +289,11 @@ export default {
         background-color: rgba(135, 206, 235, 0.5);
 
         &-card {
+            .active {
+                color: pink !important;
+                box-shadow: pink 0px 0px 10px 4px !important;
+
+            }
         }
 
         &-table {
