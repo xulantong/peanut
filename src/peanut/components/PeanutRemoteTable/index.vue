@@ -4,12 +4,18 @@
             <div class="left">
                 <slot name="toolLeft"/>
             </div>
+            <div class="right">
+                <slot name="toolRight"/>
+            </div>
         </div>
         <el-table
             class="peanut-remote-table-container-table"
             :data="tableData"
-            :max-height="300"
+            tooltip-effect="light"
+            height="100"
+            :max-height="null"
             border
+            @selection-change="handleSelectionChange"
         >
             <slot name="columns"/>
         </el-table>
@@ -20,7 +26,12 @@ import remoteTable from "../../mixins/remote-table"
 
 export default {
     name: "PeanutRemoteTable",
-    mixins: [remoteTable]
+    mixins: [remoteTable],
+    methods: {
+        handleSelectionChange(selection) {
+            this.$emit("selectionChange", selection)
+        }
+    }
 }
 </script>
 <style scoped lang="scss">
@@ -30,8 +41,7 @@ export default {
     align-items: stretch;
 
     .tool-bar {
-        min-height: 24px;
-        padding: 8px 0;
+        min-height: 48px;
         display: flex;
         justify-content: space-between;
         align-items: center;
