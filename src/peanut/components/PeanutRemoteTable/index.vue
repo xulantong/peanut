@@ -1,15 +1,26 @@
 <template>
     <div class="peanut-remote-table-container">
-        <div class="tool-bar">
+        <div class="tool-bar" v-if="showToolBar">
             <div class="left">
                 <slot name="toolLeft"/>
             </div>
         </div>
+        <el-table
+            class="peanut-remote-table-container-table"
+            :data="tableData"
+            :max-height="300"
+            border
+        >
+            <slot name="columns"/>
+        </el-table>
     </div>
 </template>
 <script>
+import remoteTable from "../../mixins/remote-table"
+
 export default {
-    name:"PeanutRemoteTable",
+    name: "PeanutRemoteTable",
+    mixins: [remoteTable]
 }
 </script>
 <style scoped lang="scss">
@@ -19,7 +30,7 @@ export default {
     align-items: stretch;
 
     .tool-bar {
-        min-height: 48px;
+        min-height: 24px;
         padding: 8px 0;
         display: flex;
         justify-content: space-between;
@@ -30,6 +41,11 @@ export default {
             flex: 1;
             width: 0;
         }
+    }
+
+    &-table {
+        flex: 1;
+        height: 0;
     }
 }
 

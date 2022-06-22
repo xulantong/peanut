@@ -1,5 +1,5 @@
 <template>
-    <div class="todo-card p-4 p-flex flex-column" @click="handleCardClick" :style="cardStyle">
+    <div class="todo-card p-4 p-flex flex-column" :style="cardStyle">
         <div class="text-bold font-bold p-flex justify-content-between">
             <el-tag
                 effect="dark"
@@ -30,7 +30,7 @@ export default {
         },
         workTitle: {
             type: String,
-            default: "暂定事项"
+            default: "鏆傚畾浜嬮」"
         },
         workCode: {
             type: String,
@@ -58,9 +58,6 @@ export default {
         }
     },
     methods:{
-        handleCardClick(){
-            console.log(this.workCode,"触发自定义事件，更新列表")
-        }
     }
 };
 </script>
