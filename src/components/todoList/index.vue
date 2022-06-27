@@ -26,9 +26,11 @@
                 >
                     <div slot="toolLeft" class="mark-title">事项列表</div>
                     <div slot="toolRight" class="mr-8 p-flex justify-content-center align-items-center">
-                        <el-button size="small" type="danger" @click="handleDelete">删 除</el-button>
+                        <el-button size="small" type="danger" :disabled="!selection.length" @click="handleDelete">删 除
+                        </el-button>
                         <el-button size="small" type="primary" @click="handleECheck">新 增</el-button>
-                        <el-button size="small" type="success" v-if="activateCard !== 'complete'"
+                        <el-button size="small" type="success" :disabled="!selection.length"
+                                   v-if="activateCard !== 'complete'"
                                    @click="handleComplete">完 成
                         </el-button>
                     </div>
@@ -92,6 +94,7 @@
 import TodoCard from "./components/todoCard";
 import AppendAndEdit from "./components/appendAndEdit";
 import dayjs from "dayjs";
+import request from "../../peanut/utils/request";
 
 let timer = null
 export default {
@@ -163,58 +166,33 @@ export default {
                     value: "suspend",
 
                 },
+                {
+                    title: "已完成事项",
+                    value: "complete",
+
+                },
             ],
             activateCard: "urgent",
             selectedRow: {},
             dialogTitle: "",
             currentTime: "",
             selection: [],
-            tableMockData: [
-                {
-                    id: "001",
-                    workName: "紧急事项",
-                    workCode: "urgent",
-                    content: "带年华卡萨计划的会计师大环境大环境肯定是",
-                    updataTime: 1655879114000
-                },
-                {
-                    id: "002",
-                    workName: "一般事项",
-                    workCode: "common",
-                    content: "带年华卡萨计划的会计师大环境大环境肯定是",
-                    updataTime: 1655792714000
-                },
-                {
-                    id: "003",
-                    workName: "紧急事项",
-                    workCode: "urgent",
-                    content: "带年华卡萨计划的会计师大环境大环境肯定是",
-                    updataTime: 1653114314000
-                },
-                {
-                    id: "004",
-                    workName: "暂缓事项",
-                    workCode: "suspend",
-                    content: "带年华卡萨计划的会计师大环境大环境肯定是",
-                    updataTime: 1621578314000
-                },
-                {
-                    id: "005",
-                    workName: "已完成事项",
-                    workCode: "complete",
-                    content: "带年华卡萨计划的会计师大环境大环境肯定是",
-                    updataTime: 1653078314000
-                },
-            ]
+            tableMockData: []
         }
     },
     mounted() {
         timer = setInterval(() => {
             this.currentTime = dayjs().format("YYYY年MM月DD日 HH:mm:ss")
         }, 100)
+        this.getList()
     },
     methods: {
         dayjs,
+        getList() {
+            request.get("/todoList/getList").then(res => {
+                this.tableMockData = res.data || []
+            })
+        },
         //点击卡片回调
         handleCardClick(val) {
             this.activateCard = val
@@ -225,19 +203,15 @@ export default {
         },
         //表格删除
         handleDelete() {
-            this.selection.forEach(item => {
-                this.tableMockData.splice(this.tableMockData.findIndex(find => find.id === item.id), 1)
+            request.post("/todoList/delete", {ids: this.selection.map(item => item.id)}).then(res => {
+                this.$message.success(res.data.result)
+                this.getList()
             })
         },
         handleComplete() {
-            this.tableMockData.forEach(item => {
-                this.selection.forEach(sel => {
-                    if (item.id === sel.id) {
-                        item.workCode = "complete"
-                        item.workName = this.workTypeList.find(type => type.value === item.workCode)?.title
-                        item.updataTime = dayjs().valueOf()
-                    }
-                })
+            request.post("/todoList/complete", {ids: this.selection.map(item => item.id)}).then(res => {
+                this.$message.success(res.data.result)
+                this.getList()
             })
         },
         //新增或者查看
@@ -251,18 +225,14 @@ export default {
         //保存的自定义函数
         handleSave(row) {
             if (row.id) {
-                this.tableMockData.forEach(item => {
-                    if (item.id === row.id) {
-                        item.workCode = row.workCode
-                        item.content = row.content
-                        item.workName = row.workName
-                        item.updataTime = row.updataTime
-                    }
+                request.post("/todoList/change", row).then((res) => {
+                    this.$message.success(res.data.result)
+                    this.getList()
                 })
             } else {
-                this.tableMockData.push({
-                    ...row,
-                    id: Math.random()
+                request.post("/todoList/append", {...row, id: dayjs().valueOf()}).then((res) => {
+                    this.$message.success(res.data.result)
+                    this.getList()
                 })
             }
         }

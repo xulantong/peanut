@@ -21,7 +21,7 @@
                 </el-select>
             </el-form-item>
             <el-form-item label="事项内容：" prop="content">
-                <el-input type="textarea" maxlength="250" show-word-limit placeholder="请输入事项内容"
+                <el-input type="textarea" :rows="10" maxlength="250" show-word-limit placeholder="请输入事项内容"
                           v-model="dataForm.content"></el-input>
             </el-form-item>
         </el-form>
@@ -82,6 +82,9 @@ export default {
         init() {
             this.dialogVisible = true
             this.dataForm = this.selectedRow ? JSON.parse(JSON.stringify(this.selectedRow)) : {}
+            if(this.dataForm.workCode === "complete"){
+                this.dataForm.workCode = ""
+            }
         },
         handleSave() {
             let {content, workCode, id} = this.dataForm
