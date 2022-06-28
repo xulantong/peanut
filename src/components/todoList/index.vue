@@ -26,6 +26,9 @@
                 >
                     <div slot="toolLeft" class="mark-title">事项列表</div>
                     <div slot="toolRight" class="mr-8 p-flex justify-content-center align-items-center">
+                        <el-button size="small" type="danger" v-show="activateCard==='complete'" :disabled="!countOfComplete"
+                                   @click="handleDeleteAll">全部删除
+                        </el-button>
                         <el-button size="small" type="danger" :disabled="!selection.length" @click="handleDelete">删 除
                         </el-button>
                         <el-button size="small" type="primary" @click="handleECheck">新 增</el-button>
@@ -101,6 +104,9 @@ export default {
     name: "todoList",
     components: {AppendAndEdit, TodoCard},
     computed: {
+        countOfComplete(){
+          return this.tableMockData.filter(item=>item.workCode === 'complete').length
+        },
         tableData() {
             return this.tableMockData.filter(item => {
                 return item.workCode === this.activateCard
@@ -208,6 +214,16 @@ export default {
                 this.getList()
             })
         },
+        //删除所有已完成
+        handleDeleteAll() {
+            this.$confirm("确认删除所有完成事项吗？", "确认删除").then(() => {
+                request.get(`/todoList/deleteAll`).then(res => {
+                    this.$message.success(res.data.result)
+                    this.getList()
+                })
+            })
+
+        },
         handleComplete() {
             request.post("/todoList/complete", {ids: this.selection.map(item => item.id)}).then(res => {
                 this.$message.success(res.data.result)
@@ -230,7 +246,7 @@ export default {
                     this.getList()
                 })
             } else {
-                request.post("/todoList/append", {...row, id: dayjs().valueOf()}).then((res) => {
+                request.post("/todoList/append", {...row, id: dayjs().valueOf().toString()}).then((res) => {
                     this.$message.success(res.data.result)
                     this.getList()
                 })
