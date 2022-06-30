@@ -75,6 +75,11 @@ export default {
                     value: "suspend",
 
                 },
+                {
+                    title: "已完成事项",
+                    value: "complete",
+
+                },
             ],
         }
     },
@@ -82,9 +87,9 @@ export default {
         init() {
             this.dialogVisible = true
             this.dataForm = this.selectedRow ? JSON.parse(JSON.stringify(this.selectedRow)) : {}
-            if(this.dataForm.workCode === "complete"){
-                this.dataForm.workCode = ""
-            }
+            // if(this.dataForm.workCode === "complete"){
+            //     this.dataForm.workCode = ""
+            // }
         },
         handleSave() {
             let {content, workCode, id} = this.dataForm

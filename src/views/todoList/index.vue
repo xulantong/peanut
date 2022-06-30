@@ -20,13 +20,15 @@
             <div class="todo-list-content-table mt-8">
                 <peanut-remote-table
                     show-tool-bar
+                    ref="table"
                     class="h-100"
-                    :tableData="tableData"
+                    :list-func="getList"
                     @selectionChange="selectionChange"
                 >
                     <div slot="toolLeft" class="mark-title">事项列表</div>
                     <div slot="toolRight" class="mr-8 p-flex justify-content-center align-items-center">
-                        <el-button size="small" type="danger" v-show="activateCard==='complete'" :disabled="!countOfComplete"
+                        <el-button size="small" type="danger" v-show="activateCard==='complete'"
+                                   :disabled="cardData[3]&&cardData[3].workCount===0"
                                    @click="handleDeleteAll">全部删除
                         </el-button>
                         <el-button size="small" type="danger" :disabled="!selection.length" @click="handleDelete">删 除
@@ -78,9 +80,7 @@
         </div>
         <div class="todo-list-footer mt-8 px-8 text-bold p-flex align-items-center justify-content-between">
             <div>
-                事项总数：{{ tableMockData.length }}，
-                未完成事项：{{ tableMockData.length - cardData[3].workCount }}，
-                已完成事项：{{ cardData[3].workCount }}
+                事项总数：{{ workTotal }}
             </div>
             <div>{{ currentTime }}</div>
         </div>
@@ -103,61 +103,10 @@ let timer = null
 export default {
     name: "todoList",
     components: {AppendAndEdit, TodoCard},
-    computed: {
-        countOfComplete(){
-          return this.tableMockData.filter(item=>item.workCode === 'complete').length
-        },
-        tableData() {
-            return this.tableMockData.filter(item => {
-                return item.workCode === this.activateCard
-            })
-        },
-        cardData() {
-            return this.cardConfigData.map(item => {
-                ['urgent', 'common', 'suspend', 'complete'].forEach(item1 => {
-                    if (item.workCode === item1) {
-                        item.workCount = this.tableMockData.filter(item => {
-                            return item.workCode === item1
-                        }).length || 0
-                        item.percent = this.tableMockData.length ? ((item.workCount / this.tableMockData.length) * 100).toFixed(2) * 1 : 0
-                    }
-                })
-                return item
-            })
-        },
-    },
     data() {
         return {
-            cardConfigData: [
-                {
-                    cradColor: "#ff4e0e",
-                    workTitle: "紧急事项",
-                    workCode: "urgent",
-                    workCount: 99,
-                    percent: 25
-                },
-                {
-                    cradColor: "#ff9612",
-                    workTitle: "一般事项",
-                    workCode: "common",
-                    workCount: 99,
-                    percent: 25
-                },
-                {
-                    cradColor: "#D0CE55",
-                    workTitle: "暂缓事项",
-                    workCode: "suspend",
-                    workCount: 99,
-                    percent: 25
-                },
-                {
-                    cradColor: "#52c41b",
-                    workTitle: "已完成事项",
-                    workCode: "complete",
-                    workCount: 99,
-                    percent: 25
-                },
-            ],
+            cardData: [],
+            workTotal: 0,
             workTypeList: [
                 {
                     title: "紧急事项",
@@ -183,25 +132,35 @@ export default {
             dialogTitle: "",
             currentTime: "",
             selection: [],
-            tableMockData: []
         }
     },
     mounted() {
         timer = setInterval(() => {
             this.currentTime = dayjs().format("YYYY年MM月DD日 HH:mm:ss")
         }, 100)
-        this.getList()
+        this.$refs.table.reload()
+        this.getCard()
     },
     methods: {
         dayjs,
-        getList() {
-            request.get("/todoList/getList").then(res => {
-                this.tableMockData = res.data || []
+        getCard() {
+            request.get(`/todoList/getCard`).then(res => {
+                this.cardData = res.data.result
+                this.workTotal = res.data.total
             })
+
+        },
+        getList(param) {
+            let params = {
+                ...param,
+                activateCard: this.activateCard
+            }
+            return request.post("/todoList/getList", params)
         },
         //点击卡片回调
         handleCardClick(val) {
             this.activateCard = val
+            this.$refs.table?.reload()
         },
         //获得选中项
         selectionChange(selection) {
@@ -211,7 +170,8 @@ export default {
         handleDelete() {
             request.post("/todoList/delete", {ids: this.selection.map(item => item.id)}).then(res => {
                 this.$message.success(res.data.result)
-                this.getList()
+                this.$refs.table.reload()
+                this.getCard()
             })
         },
         //删除所有已完成
@@ -219,7 +179,8 @@ export default {
             this.$confirm("确认删除所有完成事项吗？", "确认删除").then(() => {
                 request.get(`/todoList/deleteAll`).then(res => {
                     this.$message.success(res.data.result)
-                    this.getList()
+                    this.$refs.table.reload()
+                    this.getCard()
                 })
             })
 
@@ -227,7 +188,8 @@ export default {
         handleComplete() {
             request.post("/todoList/complete", {ids: this.selection.map(item => item.id)}).then(res => {
                 this.$message.success(res.data.result)
-                this.getList()
+                this.$refs.table.reload()
+                this.getCard()
             })
         },
         //新增或者查看
@@ -243,12 +205,13 @@ export default {
             if (row.id) {
                 request.post("/todoList/change", row).then((res) => {
                     this.$message.success(res.data.result)
-                    this.getList()
+                    this.$refs.table.reload()
                 })
             } else {
                 request.post("/todoList/append", {...row, id: dayjs().valueOf().toString()}).then((res) => {
                     this.$message.success(res.data.result)
-                    this.getList()
+                    this.$refs.table.reload()
+                    this.getCard()
                 })
             }
         }
@@ -261,14 +224,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 .todo-list {
-    height: 650px;
+    height: 100%;
     background-color: aliceblue;
     border: 1px #2FD098 solid;
     border-radius: 4px;
-    //overflow: hidden;
 
     &-content {
         flex: 0.9;
+        height: 0;
         border-radius: 4px;
         display: flex;
         flex-direction: column;
@@ -284,6 +247,7 @@ export default {
 
         &-table {
             flex: 1;
+            height: 0;
             border: 1px #2FD098 solid;
         }
     }
@@ -291,6 +255,7 @@ export default {
     &-footer {
         background-color: wheat;
         flex: 0.1;
+        height: 0;
     }
 }
 </style>
