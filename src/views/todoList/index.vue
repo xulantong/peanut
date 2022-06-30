@@ -145,8 +145,9 @@ export default {
         dayjs,
         getCard() {
             request.get(`/todoList/getCard`).then(res => {
-                this.cardData = res.data.result
-                this.workTotal = res.data.total
+                console.log(res)
+                this.cardData = res.result
+                this.workTotal = res.total
             })
 
         },
@@ -169,7 +170,7 @@ export default {
         //表格删除
         handleDelete() {
             request.post("/todoList/delete", {ids: this.selection.map(item => item.id)}).then(res => {
-                this.$message.success(res.data.result)
+                this.$message.success(res.result)
                 this.$refs.table.reload()
                 this.getCard()
             })
@@ -178,7 +179,7 @@ export default {
         handleDeleteAll() {
             this.$confirm("确认删除所有完成事项吗？", "确认删除").then(() => {
                 request.get(`/todoList/deleteAll`).then(res => {
-                    this.$message.success(res.data.result)
+                    this.$message.success(res.result)
                     this.$refs.table.reload()
                     this.getCard()
                 })
@@ -187,7 +188,7 @@ export default {
         },
         handleComplete() {
             request.post("/todoList/complete", {ids: this.selection.map(item => item.id)}).then(res => {
-                this.$message.success(res.data.result)
+                this.$message.success(res.result)
                 this.$refs.table.reload()
                 this.getCard()
             })
@@ -204,12 +205,12 @@ export default {
         handleSave(row) {
             if (row.id) {
                 request.post("/todoList/change", row).then((res) => {
-                    this.$message.success(res.data.result)
+                    this.$message.success(res.result)
                     this.$refs.table.reload()
                 })
             } else {
                 request.post("/todoList/append", {...row, id: dayjs().valueOf().toString()}).then((res) => {
-                    this.$message.success(res.data.result)
+                    this.$message.success(res.result)
                     this.$refs.table.reload()
                     this.getCard()
                 })
@@ -230,7 +231,7 @@ export default {
     border-radius: 4px;
 
     &-content {
-        flex: 0.9;
+        flex: 1;
         height: 0;
         border-radius: 4px;
         display: flex;
@@ -254,8 +255,8 @@ export default {
 
     &-footer {
         background-color: wheat;
-        flex: 0.1;
-        height: 0;
+        //flex: 0.1;
+        height: 48px;
     }
 }
 </style>

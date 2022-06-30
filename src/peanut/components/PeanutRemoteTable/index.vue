@@ -85,7 +85,7 @@ export default {
                 })
             }
             promise.then(res => {
-                let {result, rowCount} = res.data;
+                let {result, rowCount} = res;
                 this.tableData = result;
                 this.total = rowCount
                 if (this.maxFields?.length) {
