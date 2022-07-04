@@ -1,5 +1,5 @@
 <template>
-    <div class="peanut-remote-table-container" v-peanut-loading="loading" peanut-loading-bg="white">
+    <div class="peanut-remote-table-container" v-loading="loading">
         <div class="tool-bar" v-if="showToolBar">
             <div class="left">
                 <slot name="toolLeft"/>
@@ -19,8 +19,11 @@
             @selection-change="handleSelectionChange"
         >
             <slot name="columns"/>
+            <div slot="empty">
+                <peanut-empty/>
+            </div>
         </el-table>
-        <div v-if="showPage" class="text-right my-8">
+        <div v-if="showPage&&total" class="text-right" style="border-top: 1px solid #EBEEF5">
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"

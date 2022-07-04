@@ -1,5 +1,6 @@
 <template>
     <div class="todo-list p-8 p-flex flex-column">
+
         <div class="p-flex justify-content-center align-items-center text-bolder p-16 font-bolder"
              style="background-color: rgba(0,135,255,0.15);border-radius: 4px">
             待办事项
@@ -31,7 +32,8 @@
                                    :disabled="cardData[3]&&cardData[3].workCount===0"
                                    @click="handleDeleteAll">全部删除
                         </el-button>
-                        <el-button size="small" type="danger" :disabled="!selection.length" @click="handleDelete">删 除
+                        <el-button size="small" type="danger" :disabled="!selection.length" @click="handleDelete">删
+                            除
                         </el-button>
                         <el-button size="small" type="primary" @click="handleECheck">新 增</el-button>
                         <el-button size="small" type="success" :disabled="!selection.length"
@@ -84,6 +86,7 @@
             </div>
             <div>{{ currentTime }}</div>
         </div>
+
         <append-and-edit
             ref="diaglog"
             :dialog-title="dialogTitle"
