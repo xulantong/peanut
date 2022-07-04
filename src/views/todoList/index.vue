@@ -254,8 +254,7 @@ export default {
     }
 
     &-footer {
-        background-color: wheat;
-        //flex: 0.1;
+        background-color: white;
         height: 48px;
     }
 }

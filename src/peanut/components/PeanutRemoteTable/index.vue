@@ -1,5 +1,5 @@
 <template>
-    <div class="peanut-remote-table-container">
+    <div class="peanut-remote-table-container" v-peanut-loading="loading" peanut-loading-bg="white">
         <div class="tool-bar" v-if="showToolBar">
             <div class="left">
                 <slot name="toolLeft"/>
@@ -42,6 +42,7 @@ export default {
     mixins: [remoteTable],
     data() {
         return {
+            loading: false,
             tableData: [],
             tableParams: [],
             currentPage: 1,
@@ -66,6 +67,7 @@ export default {
                 return;
             }
             this.max = {};
+            this.loading = true
             let params = Object.assign({}, {
                 currentPage: this.currentPage,
                 pageSize: this.currentPageSize || this.pageSize,
