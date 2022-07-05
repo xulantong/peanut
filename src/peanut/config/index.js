@@ -6,5 +6,4 @@ module.exports = {
     //post请求时默认的Content-Type
     contentType: 'application/json;charset=UTF-8',
 
-
 }

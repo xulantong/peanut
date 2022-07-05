@@ -12,7 +12,7 @@ export default {
             type: String,
             default: "暂无数据"
         },
-        //图片尺寸l
+        //图片尺寸
         imgSize: {
             type: Number,
             default: 150

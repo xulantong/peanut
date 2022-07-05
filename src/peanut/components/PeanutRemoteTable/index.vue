@@ -17,6 +17,8 @@
             :border="border"
             :size="size"
             :fit="fit"
+            :max-height="maxHeight"
+            :height="height"
             :show-header="showHeader"
             :highlight-current-row="highlightCurrentRow"
             :row-class-name="rowClassName"
@@ -61,6 +63,8 @@ export default {
             tableData: [],
             tableParams: [],
             total: 0,
+            currentPage:1,
+            pageSize:20,
             currentPageSize: null,
             sort: []
         }

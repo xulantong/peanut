@@ -15,6 +15,17 @@ export default {
             type: [Function, String],
             require: true,
         },
+        //高度
+        height: {
+            type: Number,
+            default: 250
+        },
+        //最大高度
+        maxHeight: {
+            type: Number,
+            default: null
+        },
+
         //是否展示斑马纹
         stripe: {
             type: Boolean,
@@ -89,16 +100,6 @@ export default {
         showPage: {
             type: Boolean,
             default: true
-        },
-        //当前页
-        currentPage: {
-            type: Number,
-            default: 1
-        },
-        //每页条数
-        pageSize: {
-            type: Number,
-            default: 20
         },
         //分页是否带背景
         showPageBackground: {
