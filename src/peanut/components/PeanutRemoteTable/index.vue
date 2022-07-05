@@ -13,21 +13,33 @@
             class="peanut-remote-table-container-table"
             :data="tableData"
             tooltip-effect="light"
-            height="100"
-            :max-height="null"
-            border
+            :stripe="stripe"
+            :border="border"
+            :size="size"
+            :fit="fit"
+            :show-header="showHeader"
+            :highlight-current-row="highlightCurrentRow"
+            :row-class-name="rowClassName"
+            :row-style="rowStyle"
+            :cell-class-name="cellClassName"
+            :cell-style="cellStyle"
+            :header-row-class-name="headerRowClassName"
+            :header-row-style="headerRowStyle"
+            :header-cell-class-name="headerCellClassName"
+            :header-cell-style="headerCellStyle"
             @selection-change="handleSelectionChange"
         >
             <slot name="columns"/>
             <div slot="empty">
-                <peanut-empty/>
+                <peanut-empty :description="description" :imgSize="imgSize"/>
             </div>
         </el-table>
-        <div v-if="showPage&&total" class="text-right" style="border-top: 1px solid #EBEEF5">
+        <div v-if="showPage&&total" class=" peanut-remote-table-container-footer ">
             <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page="currentPage"
+                :background="showPageBackground"
                 :page-sizes="[10, 20, 60, 80,100]"
                 :page-size="pageSize"
                 :layout="total <= 10 ? 'total' : 'total, prev, pager, next, sizes, jumper'"
@@ -48,8 +60,6 @@ export default {
             loading: false,
             tableData: [],
             tableParams: [],
-            currentPage: 1,
-            pageSize: 20,
             total: 0,
             currentPageSize: null,
             sort: []
@@ -170,6 +180,14 @@ export default {
     &-table {
         flex: 1;
         height: 0;
+    }
+
+    &-footer {
+        text-align: right;
+        height: 48px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
     }
 }
 

@@ -7,13 +7,15 @@
 export default {
     name: "PeanutEmpty",
     props: {
+        //描述文字
         description: {
             type: String,
             default: "暂无数据"
         },
+        //图片尺寸l
         imgSize: {
             type: Number,
-            default: 200
+            default: 150
         }
     }
 }
