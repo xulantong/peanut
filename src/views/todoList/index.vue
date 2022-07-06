@@ -1,5 +1,5 @@
 <template>
-    <div class="todo-list p-8 p-flex flex-column">
+    <div class="todo-list p-flex flex-column">
 
         <div class="p-flex justify-content-center align-items-center text-bolder p-16 font-bolder"
              style="background-color: rgba(0,135,255,0.15);border-radius: 4px">
@@ -148,7 +148,6 @@ export default {
         dayjs,
         getCard() {
             request.get(`/todoList/getCard`).then(res => {
-                console.log(res)
                 this.cardData = res.result
                 this.workTotal = res.total
             })
@@ -229,6 +228,7 @@ export default {
 <style lang="scss" scoped>
 .todo-list {
     height: 100%;
+    //width: 100%;
     background-color: aliceblue;
     border: 1px #2FD098 solid;
     border-radius: 4px;
