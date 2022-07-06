@@ -10,8 +10,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .peanut-layout-side {
-    width: 220px;
-    min-width: 15%;
+    width: 200px;
+    min-width: 10%;
     background-color: rgba(47, 208, 152, 0.5);
 }
 

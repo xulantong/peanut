@@ -12,10 +12,18 @@ const routes = [
         hidden: true,
     },
     {
-        path: '/todolist',
-        name: 'todolist',
-        component: () => import("./../../views/todoList"),
+        path: '/test',
+        name: 'test',
+        component: layouts,
+        children: [
+            {
+                path: '/todolist',
+                name: 'todolist',
+                component: () => import("./../../views/todoList"),
+            }
+        ]
     }
+
 ]
 
 export default new VueRouter({
