@@ -3,6 +3,11 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+// require.context(directory,useSubdirectories,regExp)
+// directory:表示检索的目录
+// useSubdirectories：表示是否检索子文件夹
+// regExp:匹配文件的正则表达式,一般是文件名
+
 let customModules = {};
 const customFiles = require.context("@", true, /\.\/store\/index\.js/)
 if (customFiles.keys().length) {

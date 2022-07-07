@@ -7,26 +7,15 @@ Vue.use(VueRouter)
 
 const routes = [
     {
-        path: '/login',
-        component: () => import('../views/login/index'),
-        hidden: true,
+        path: '/',
+        component: () => import('@/peanut/views/login/index'),
     },
     {
-        path: '/test',
-        name: 'test',
-        component: layouts,
-        children: [
-            {
-                path: '/todolist',
-                name: 'todolist',
-                component: () => import("./../../views/todoList"),
-            }
-        ]
-    }
-
+        path: '/login',
+        component: () => import('@/peanut/views/login/index'),
+    },
 ]
 
 export default new VueRouter({
-    // name: 'RouterDefault',
     routes: routes
 })

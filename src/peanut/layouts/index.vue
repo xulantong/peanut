@@ -5,7 +5,7 @@
             <peanut-layout-top-right slot="right"></peanut-layout-top-right>
         </peanut-layout-top>
         <div class="peanut-layouts-content">
-            <peanut-layout-side></peanut-layout-side>
+            <peanut-layout-side/>
             <div class="peanut-layouts-content-main">
 <!--                <peanut-layout-tabs></peanut-layout-tabs>-->
                 <peanut-layout-main></peanut-layout-main>

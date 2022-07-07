@@ -20,7 +20,8 @@
                     </el-form-item>
                     <el-button type="text" class="forget" @click="forgetPassword">忘记密码</el-button>
                     <el-form-item>
-                        <el-button type="primary" native-type="submit" style="width: 100%">登 录</el-button>
+                        <el-button type="primary" :loading="loading" native-type="submit" style="width: 100%">登 录
+                        </el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -46,7 +47,8 @@ export default {
                 password: [{
                     required: true, message: "密码不能为空", trigger: ['input', 'blur']
                 }],
-            }
+            },
+            loading: false
         }
     },
     methods: {
@@ -54,18 +56,24 @@ export default {
             this.$message.info("请联系管理员")
         },
         handleSubmit() {
+            if (this.loading) {
+                return;
+            }
             this.$refs['form'].validate((valid) => {
                 if (valid) {
+                    this.loading = true
                     login(this.loginForm).then(res => {
                         this.$notify.success({
                             title: '登录状态',
                             message: res?.result?.msg,
                             showClose: false,
-                            duration:500
+                            duration: 500
                         })
-                        this.$router.replace("/todolist")
+                        this.$router.replace("/test/todolist")
                     }).catch(e => {
                         this.$message.warning("登陆失败")
+                    }).catch(()=>{
+                        this.loading = false
                     })
                 } else {
                     return false
