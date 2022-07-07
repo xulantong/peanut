@@ -33,6 +33,7 @@ export default {
     flex-direction: column;
 
     &-content {
+        margin-right: 8px;
         height: 0;
         flex: 1;
         display: flex;

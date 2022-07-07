@@ -13,6 +13,7 @@ files.keys().forEach((key) => {
 Object.keys(modules).forEach((key) => {
     modules[key]['namespaced'] = true
 })
-export default new Vuex.Store({
-    modules,
-})
+// export default new Vuex.Store({
+//     modules,
+// })
+export default modules
