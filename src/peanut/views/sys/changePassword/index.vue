@@ -34,8 +34,11 @@
                 </div>
             </template>
             <template v-if="active===2">
-                <span>{{ second }}秒后自动返回登录页<el-button class="ml-8" type="text"
-                                                      @click="$router.replace('/login')">快速返回</el-button></span>
+                <div class="p-flex align-items-center font-bolder text-bolder">{{ second }}秒后自动返回登录页
+                    <el-button class="ml-8" type="text" @click="$router.replace('/login')">
+                        <span class="font-bolder">快速返回</span>
+                    </el-button>
+                </div>
             </template>
         </div>
 
@@ -50,7 +53,7 @@ export default {
     name: "changePassword",
     data() {
         return {
-            active: 0,
+            active: 2,
             nextLoading: false,
             confirmLoading: false,
             second: 5,

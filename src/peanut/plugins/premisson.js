@@ -1,48 +1,39 @@
 import router from '@/peanut/router'
 import store from '@/peanut/store'
 import layouts from "../layouts";
+import request from "../utils/request";
 
-let routes = [
-    {
-        path: '/test',
-        name: 'test',
-        component: layouts,
-        meta: {
-            title: "待办事项",
-        },
-        children: [
-            {
-                path: 'todolist',
-                name: 'todolist',
-                component: () => import("@/views/todoList"),
-                meta: {
-                    title: "待办事项",
-                }
-
-            },
-            {
-                path: 'info',
-                name: 'info',
-                component: () => import("@/views/information"),
-                meta: {
-                    title: "个人介绍",
-                }
-
-            },
-
-        ]
-    }
-]
+let routes = []
+request.get(`/sys/getMenuTree`).then(res=>{
+    routes = res.result
+    resolveRoute(routes)
+    routes.forEach(route => router.addRoute(route))
+    store.commit('peanut-routes/setRoutes', routes)
+})
 const resolveRoute = function (routes) {
     routes.forEach(route => {
+        route.component = getLayoutComponent(route.componentPath)
+        delete route.componentPath
         route?.children?.forEach(item => {
-            item.fullPath = (route.path || '') +'/'+ (item.path || "")
+            item.fullPath = (route.path || '') + '/' + (item.path || "")
+            item.component = getLayoutComponent(item.componentPath)
             if (item.children && item.children.length)
-                resolveRoute(item, item.children)
+                resolveRoute(item)
         })
     })
 
 }
-resolveRoute(routes)
-routes.forEach(route => router.addRoute(route))
-store.commit('peanut-routes/setRoutes', routes)
+
+function getLayoutComponent(path) {
+    return () => ((async () => {
+        if (path.includes('peanut')) {
+            return await import("@/peanut/" + path.replace("@/peanut/", ''))
+        } else {
+            return await import("@/views/" + path.replace("@/views/", ''))
+        }
+
+    })())
+
+}
+
+
