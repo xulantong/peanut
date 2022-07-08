@@ -1,12 +1,12 @@
 <template>
     <div class="peanut-login">
         <div class="peanut-login-header">
-            <img src="../../assets/peanut.svg" style="width: 30px;height: 30px"></img>
+            <img src="../../../assets/peanut.svg" style="width: 30px;height: 30px"></img>
             <span class="text-bolder font-bolder">PEANUT</span>
         </div>
         <div class="peanut-login-container">
             <div class="peanut-login-container-left">
-                <img src="../../assets/peanut.svg" style="width: 300px;height: 300px"></img>
+                <img src="../../../assets/peanut.svg" style="width: 300px;height: 300px"></img>
             </div>
             <div class="peanut-login-container-right">
                 <div class="text-bolder font-bolder">账号登录</div>
@@ -30,7 +30,7 @@
     </div>
 </template>
 <script>
-import {login} from "../../api/sys";
+import {login} from "../../../api/sys";
 
 export default {
     name: "peanutLogin",
@@ -89,7 +89,7 @@ export default {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-image: url("../../assets/background.png");
+    background-image: url("../../../assets/background.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     position: relative;

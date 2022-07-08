@@ -1,22 +1,20 @@
 <template>
     <div class="peanut-layout-menu">
-        <el-scrollbar>
-            <el-menu
-                router
-                mode="vertical"
-                active-text-color="#409EFF"
-                :default-active="defaultActive"
-                collapse-transition
-                unique-opened
-            >
-                <template v-for="route in routes">
-                    <route-item
-                        :key="route.path"
-                        :item="route"
-                    />
-                </template>
-            </el-menu>
-        </el-scrollbar>
+        <el-menu
+            router
+            mode="vertical"
+            active-text-color="#409EFF"
+            :default-active="defaultActive"
+            collapse-transition
+            unique-opened
+        >
+            <template v-for="route in routes">
+                <route-item
+                    :key="route.path"
+                    :item="route"
+                />
+            </template>
+        </el-menu>
     </div>
 </template>
 <script>

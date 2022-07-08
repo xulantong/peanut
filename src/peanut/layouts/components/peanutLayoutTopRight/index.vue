@@ -13,8 +13,27 @@
 export default {
     name: "peanutLayoutTopRight",
     methods: {
-        handleCommand() {
-
+        handleCommand(val) {
+            switch (val) {
+                case 'changePassword' :
+                    this.changePassword();
+                    break;
+                case 'logout' :
+                    this.logout();
+                    break;
+            }
+        },
+        changePassword() {
+            this.$router.push("/changePassword").catch(() => {})
+        },
+        logout() {
+            this.$confirm("确认退出系统？", '温馨提示', {
+                cancelButtonText: "取消",
+                confirmButtonText: '确定',
+                type:"warning"
+            }).then(() => {
+                this.$router.replace("/login")
+            }).catch(()=>{})
         }
     }
 }

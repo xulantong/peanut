@@ -8,11 +8,16 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/',
-        component: () => import('@/peanut/views/login/index'),
+        component: () => import('@/peanut/views/sys/login/index'),
     },
     {
         path: '/login',
-        component: () => import('@/peanut/views/login/index'),
+        component: () => import('@/peanut/views/sys/login/index'),
+    },
+    {
+        path: '/changePassword',
+        component: () => import('@/peanut/views/sys/changePassword/index'),
+
     },
 ]
 
