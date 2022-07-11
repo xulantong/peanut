@@ -2,10 +2,9 @@
     <div class="peanut-layout-menu">
         <el-menu
             router
-            mode="vertical"
+            :mode="mode"
             active-text-color="#409EFF"
             :default-active="defaultActive"
-            collapse-transition
             unique-opened
         >
             <template v-for="route in routes">
@@ -18,17 +17,26 @@
     </div>
 </template>
 <script>
-import {mapState} from "vuex";
 import RouteItem from "./components/routeItem";
 
 export default {
     name: "peanutLayoutMenu",
     components: {RouteItem},
+    props: {
+        mode: {
+            type: String,
+            default: "vertical"
+        },
+        routes: {
+            type: Array,
+            default: ()=>{}
+        },
+    },
     computed: {
-        ...mapState('peanut-routes', ["routes"]),
         defaultActive() {
             return this.$route.path;
-        }
+        },
+
     },
 }
 

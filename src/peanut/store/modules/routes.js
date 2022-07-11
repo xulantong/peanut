@@ -1,5 +1,3 @@
-import layouts from "../../layouts";
-
 const state = ()=>  ({
     routes: []
 })

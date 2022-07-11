@@ -1,12 +1,21 @@
 <template>
     <div class="peanut-layout-side">
-        <peanut-layout-menu/>
+        <peanut-layout-menu :routes="sideRoutes"/>
     </div>
 
 </template>
 <script>
+import {mapState} from "vuex";
+
 export default {
-    name: "peanutLayoutSide"
+    name: "peanutLayoutSide",
+    computed:{
+        ...mapState('peanut-routes', ["routes"]),
+        sideRoutes() {
+            return this.routes.filter(route => route.meta?.isTop == 'false')
+        }
+
+    }
 }
 
 </script>

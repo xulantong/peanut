@@ -53,7 +53,7 @@ export default {
     name: "changePassword",
     data() {
         return {
-            active: 2,
+            active: 0,
             nextLoading: false,
             confirmLoading: false,
             second: 5,

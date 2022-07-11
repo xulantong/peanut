@@ -44,7 +44,7 @@ export default {
         handleItem() {
             const getItem = function (route) {
                 let children = route.children?.filter(item => !item.hidden);
-                if (children?.length && children.length === 1 && !route.alwaysShow) {
+                if (children?.length && children.length === 1 &&  route.alwaysShow !='true') {
                     return getItem(children[0]);
                 }
                 return {
@@ -52,7 +52,6 @@ export default {
                     children
                 };
             }
-            //·Çhidden
             this.routeData = getItem(this.item);
             return !this.routeData.children?.length;
         }

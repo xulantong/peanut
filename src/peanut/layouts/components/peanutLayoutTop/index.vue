@@ -21,7 +21,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     background-color: #2FD098;
-    height: 48px;
+    height: 60px;
     padding: 0 8px;
     .left-content{
         display: flex;
