@@ -10,5 +10,5 @@ export function changePassword(params) {
     return request.post(`/sys/changePassword`, params)
 }
 export function getMenuTree(params) {
-    return request.post(`/sys/getMenuTree`, params)
+    return request.get(`/sys/getMenuTree`, params)
 }

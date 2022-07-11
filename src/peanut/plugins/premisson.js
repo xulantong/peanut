@@ -1,10 +1,9 @@
 import router from '@/peanut/router'
 import store from '@/peanut/store'
-import layouts from "../layouts";
-import request from "../utils/request";
+import {getMenuTree} from "../api/sys";
 
 let routes = []
-request.get(`/sys/getMenuTree`).then(res=>{
+getMenuTree().then(res=>{
     routes = res.result
     resolveRoute(routes)
     routes.forEach(route => router.addRoute(route))
@@ -26,7 +25,7 @@ const resolveRoute = function (routes) {
 
 function getLayoutComponent(path) {
     return () => ((async () => {
-        if (path.includes('peanut')) {
+        if (path.includes('@/peanut/')) {
             return await import("@/peanut/" + path.replace("@/peanut/", ''))
         } else {
             return await import("@/views/" + path.replace("@/views/", ''))
