@@ -9,12 +9,26 @@ import {mapState} from "vuex";
 
 export default {
     name: "peanutLayoutSide",
-    computed:{
+    data() {
+        return {
+            originRoutes: []
+        }
+    },
+    computed: {
         ...mapState('peanut-routes', ["routes"]),
         sideRoutes() {
+            if (this.originRoutes?.length) {
+                console.log('????')
+                return this.originRoutes
+            }
             return this.routes.filter(route => route.meta?.isTop == 'false')
         }
 
+    },
+    mounted() {
+        this.$baseEventBus.$on("handleClickTopMenu", (routes) => {
+            this.originRoutes = routes
+        })
     }
 }
 

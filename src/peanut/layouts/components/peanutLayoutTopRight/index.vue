@@ -1,9 +1,10 @@
 <template>
     <div class="peanut-layoutTo-right">
         <div class="peanut-layoutTo-right-menu mr-32">
-            <el-menu mode="horizontal" background-color="#2FD098">
+            <el-menu mode="horizontal" background-color="#2FD098" text-color="#303133" @select="handleSelect">
                 <template v-for="item in topRoutes">
-                    <el-menu-item :index="item.path"><span class="text-bold font-bold">{{ item.meta.title }}</span></el-menu-item>
+                    <el-menu-item :index="item.path"><span class="text-bold font-bold">{{ item.meta.title }}</span>
+                    </el-menu-item>
                 </template>
             </el-menu>
         </div>
@@ -28,6 +29,10 @@ export default {
         }
     },
     methods: {
+        handleSelect(index) {
+            let sideRoute = this.routes.filter(item => item.path === index)
+            this.$baseEventBus.$emit("handleClickTopMenu", sideRoute)
+        },
         handleCommand(val) {
             switch (val) {
                 case 'changePassword' :

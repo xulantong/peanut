@@ -29,7 +29,8 @@ export default {
         },
         routes: {
             type: Array,
-            default: ()=>{}
+            default: () => {
+            }
         },
     },
     computed: {
