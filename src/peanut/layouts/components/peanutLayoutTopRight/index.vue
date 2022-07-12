@@ -69,8 +69,6 @@ export default {
     justify-content: flex-end;
     align-items: center;
 
-    &-menu {
-    }
 
     .avatar {
         cursor: pointer;
