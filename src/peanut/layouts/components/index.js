@@ -6,7 +6,6 @@ import peanutLayoutTabs from "./peanutLayoutTabs";
 import peanutLayoutMain from "./peanutLayoutMain";
 import peanutLayoutMenu from "./peanutLayoutMenu";
 
-
 export default {
     install(Vue) {
         Vue.component("peanutLayoutTop",peanutLayoutTop)

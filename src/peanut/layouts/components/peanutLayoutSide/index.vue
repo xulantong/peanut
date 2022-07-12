@@ -18,7 +18,6 @@ export default {
         ...mapState('peanut-routes', ["routes"]),
         sideRoutes() {
             if (this.originRoutes?.length) {
-                console.log('????')
                 return this.originRoutes
             }
             return this.routes.filter(route => route.meta?.isTop == 'false')
