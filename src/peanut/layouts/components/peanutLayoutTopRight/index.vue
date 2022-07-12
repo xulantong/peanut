@@ -1,7 +1,7 @@
 <template>
     <div class="peanut-layoutTo-right">
         <div class="peanut-layoutTo-right-menu mr-32">
-            <el-menu mode="horizontal" background-color="#2FD098" text-color="#303133" @select="handleSelect">
+            <el-menu mode="horizontal" background-color="#2FD098" text-color="#303133" style="border: none" @select="handleSelect">
                 <template v-for="item in topRoutes">
                     <el-menu-item :index="item.path"><span class="text-bold font-bold"> <peanut-icon
                         v-if="item.meta.icon" :icon-name="item.meta.icon"></peanut-icon>{{ item.meta.title }}</span>
@@ -68,7 +68,6 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-
 
     .avatar {
         cursor: pointer;

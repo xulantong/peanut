@@ -121,7 +121,7 @@ export default {
         &-right {
             height: 400px;
             padding: 0 32px;
-            border-radius: 8px;
+            border-radius: 4px;
             border: 1px #2FD098 solid;
             background-color: #FFFFFF;
             color: black;

@@ -18,8 +18,10 @@ export default {
         ...mapState('peanut-routes', ["routes"]),
         sideRoutes() {
             if (this.originRoutes?.length) {
+                this.$router.push(this.originRoutes[0].children[0].fullPath)
                 return this.originRoutes
             }
+            this.$router.push(this.routes.filter(route => route.meta?.isTop == 'false')[0].children[0].fullPath)
             return this.routes.filter(route => route.meta?.isTop == 'false')
         }
 
@@ -38,6 +40,7 @@ export default {
     width: 200px;
     min-width: 10%;
     border: 1px #2FD098 solid;
+    background-color: #FFFFFF;
 }
 
 </style>

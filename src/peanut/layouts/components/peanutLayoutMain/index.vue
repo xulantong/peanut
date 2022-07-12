@@ -17,7 +17,8 @@ export default {
     margin-top: 8px;
     margin-left: 8px;
     height: 98%;
-    background-color: rgba(47, 208, 152, 0.5);
+    border-radius: 4px;
+    background-color: #FFFFFF;
     .router-container{
         min-height: 100%;
     }

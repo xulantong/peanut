@@ -11,7 +11,6 @@
                 <peanut-layout-main></peanut-layout-main>
             </div>
 
-
         </div>
     </div>
 
@@ -31,6 +30,7 @@ export default {
     width: 100%;
     min-width: 500px;
     flex-direction: column;
+    background-color: #EFF3FE;
 
     &-content {
         margin-right: 8px;

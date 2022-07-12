@@ -144,7 +144,7 @@ export default {
     justify-content: center;
 
     &-container {
-        border-radius: 8px;
+        border-radius: 4px;
         margin-top: 100px;
         padding: 32px 24px;
         width: 800px;
