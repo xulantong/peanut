@@ -26,12 +26,25 @@ export default {
         },
         extra: {
             type: String,
-            default: "extra"
+            default: ""
         },
+        //是否显示冒号
         colon: {
             type: Boolean,
             default: true
         },
+        showExtra: {
+            type: Boolean,
+            default: true
+        },
+        descriptionConfig: {
+            type: Array,
+            default: []
+        },
+        descriptionData: {
+            type: Object,
+            default: {}
+        }
 
     }
 }

@@ -1,14 +1,14 @@
 import PeanutRemoteTable from "./PeanutRemoteTable"
 import PeanutEmpty from "./PeanutEmpty"
-import peanutIcon from "./peanutIcon";
-import peanutDescriptions from "./peanutDescriptions";
+import PeanutIcon from "./PeanutIcon";
+import PeanutDescriptions from "./PeanutDescriptions";
 
 export default {
     install(Vue){
         Vue.component("PeanutRemoteTable", PeanutRemoteTable)
         Vue.component("PeanutEmpty", PeanutEmpty)
-        Vue.component("peanutIcon",peanutIcon)
-        Vue.component("peanutDescriptions",peanutDescriptions)
+        Vue.component("PeanutIcon",PeanutIcon)
+        Vue.component("PeanutDescriptions",PeanutDescriptions)
 
     }
 }
