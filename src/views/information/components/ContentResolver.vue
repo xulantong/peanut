@@ -29,14 +29,22 @@ export default {
         //清单变更信息
         changeInfo: {},
     },
-    mounted() {
+    data() {
+        return {
+            fieldItems:{}
+        }
+    },
+    provide() {
+        return {
+            contentResolver: this
+        }
     },
     methods: {
         renderComponent(h, config) {
             if (!config) {
                 return null
             }
-            let {component, children, showMode,showStar, ...props} = config
+            let {component, children, showMode, showStar, style, ...props} = config
             let listeners = {}
             if (!['PartContainer'].includes(component)) {
                 props = {
@@ -52,7 +60,22 @@ export default {
                     },
                 }
             }
-
+            let componentObj = (
+                <component
+                    is={component}
+                    {...{props}}
+                    {...{on: listeners}}
+                    style={style}
+                    class={[
+                        showMode ? 'show-mode mode-' + showMode : null,
+                    ]}>
+                    {children && children.map((item) => this.renderComponent(h, item))}
+                </component>
+            )
+            if (component === 'PartContainer') {
+                this.parts.push(componentObj)
+            }
+            return componentObj
 
 
         }
@@ -60,7 +83,7 @@ export default {
     render(h) {
         return (
             <div>
-                informationConfig.map((item) => this.renderComponent(h, item))
+                {informationConfig.map((item) => this.renderComponent(h, item))}
             </div>
         )
     }
@@ -68,5 +91,11 @@ export default {
 
 </script>
 <style lang="scss" scoped>
+.showMode{
+
+}
+.mode-1{
+    display: none;
+}
 
 </style>

@@ -69,7 +69,7 @@ export default {
                             showClose: false,
                             duration: 500
                         })
-                        this.$router.replace("/test/todolist")
+                        this.$router.replace("/test/todolist").catch(()=>{})
                     }).catch(e => {
                         this.$message.warning("登陆失败")
                     }).catch(()=>{
