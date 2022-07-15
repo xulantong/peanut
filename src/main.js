@@ -8,7 +8,7 @@ import * as echarts from 'echarts'
 Vue.prototype.$echarts = echarts
 import "./peanut"
 
-Vue.use(ElementUI)
+Vue.use(ElementUI,{ size: 'small' })
 
 Vue.config.productionTip = false
 

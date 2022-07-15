@@ -22,8 +22,6 @@ export default {
             type: Boolean,
             default: false,
         },
-        //数据字典
-        dict: {},
         //个人详细信息
         dataDetail: {},
         //清单变更信息
@@ -31,7 +29,7 @@ export default {
     },
     data() {
         return {
-            fieldItems:{}
+            fieldItems:{},
         }
     },
     provide() {
@@ -49,10 +47,7 @@ export default {
             if (!['PartContainer'].includes(component)) {
                 props = {
                     ...props,
-                    dict: this.dict,
-                    data: this.data,
                     edit: this.edit,
-                    changeInfo: this.changeInfo,
                 }
                 listeners = {
                     'update:changeInfo': (val) => {
@@ -72,9 +67,9 @@ export default {
                     {children && children.map((item) => this.renderComponent(h, item))}
                 </component>
             )
-            if (component === 'PartContainer') {
-                this.parts.push(componentObj)
-            }
+            // if (component === 'PartContainer') {
+            //     this.parts.push(componentObj)
+            // }
             return componentObj
 
 

@@ -2,13 +2,11 @@
     <div class="information">
         <div class="information-header">
             <div class="information-header-left">
-                <el-button size="mini" plain @click="printInfo">清单打印</el-button>
+                <el-button size="mini" type="info" @click="printInfo">简历打印</el-button>
             </div>
-            <div class="information-header-middle">
-                个人简历
-            </div>
+
             <div class="information-header-right">
-                <el-button size="mini" v-if="!edit" plain @click="handleEdit">编辑</el-button>
+                <el-button size="mini" v-if="!edit" type="primary" @click="handleEdit">编辑</el-button>
                 <el-button size="mini" v-if="edit" plain @click="handleCancel">取消</el-button>
                 <el-button size="mini" v-if="edit" type="primary" :loading="saveLoading" @click="handleSave">保存
                 </el-button>
@@ -16,6 +14,9 @@
         </div>
         <div class="information-container">
             <div class="information-container-left">
+                <div class="information-container-left-header">
+                    个人简历
+                </div>
                 <div class="information-container-left-top">
                     <el-radio-group v-model="mode" size="mini">
                         <el-radio-button :label="0">简洁模式</el-radio-button>
@@ -23,7 +24,7 @@
                     </el-radio-group>
                 </div>
                 <content-resolver
-                :edit="edit"/>
+                    :edit="edit"/>
             </div>
             <div class="information-container-right"></div>
 
@@ -42,13 +43,13 @@ export default {
     components: {ContentResolver},
     data() {
         return {
-            dataInfoOrigin:{},
+            dataInfoOrigin: {},
             edit: false,
-            mode:0,
+            mode: 0,
             saveLoading: false,
         }
     },
-    computed:{
+    computed: {
         ...mapState('information', ['dataInfo']),
     },
     methods: {
@@ -61,11 +62,11 @@ export default {
         },
         handleCancel() {
             this.edit = false
-            this.$store.commit("information/setDataInfo",this.dataInfoOrigin)
+            this.$store.commit("information/setDataInfo", this.dataInfoOrigin)
         },
         handleSave() {
             this.edit = false
-            this.$store.commit("information/setDataInfo",this.dataInfo)
+            this.$store.commit("information/setDataInfo", this.dataInfo)
         }
     }
 
@@ -76,6 +77,8 @@ export default {
 .information {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    flex: 1;
 
     &-header {
         border-radius: 4px;
@@ -84,16 +87,6 @@ export default {
         display: flex;
         align-items: center;
         justify-content: space-between;
-
-        &-middle {
-            font-size: 20px;
-            font-weight: 500;
-        }
-
-        &-right {
-            text-align: right;
-            width: 300px;
-        }
     }
 
     &-container {
@@ -105,10 +98,17 @@ export default {
         &-left {
             padding: 20px;
             flex: 0.7;
-            &-top{
+
+            &-top {
                 display: flex;
                 align-items: center;
                 justify-content: flex-end;
+            }
+            &-header{
+                display: flex;
+                justify-content: center;
+                font-weight: 600;
+                font-size: 25px;
             }
         }
 
