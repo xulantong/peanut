@@ -1,6 +1,6 @@
 <template>
     <div class="AutoFitEditor">
-        <el-input v-model="modelValue" size="mini"></el-input>
+        <el-input v-model="modelValue"></el-input>
         <div class="value-wrapper">{{ showValue || '-' }}</div>
     </div>
 </template>
@@ -9,7 +9,15 @@ export default {
     name: "AutoFitEditor",
     props: {
         value: {},
-        showValue: {}
+        showValue: {},
+        type: {
+            type: String,
+            default: "string"
+        },
+        menu: {
+            type: String,
+            default: "string"
+        },
     },
     computed: {
         modelValue: {
@@ -34,15 +42,16 @@ export default {
     position: relative;
     word-break: break-all;
 
-    .el-input {
+    .el-input,.el-textarea {
         position: absolute;
         top: -4px;
         right: 0;
         bottom: 0;
         left: 0;
         width: unset !important;
+        height: fit-content;
 
-        .el-input__inner {
+        .el-input__inner, .el-textarea__inner {
             padding: 0 10px !important;
             height: 100%;
             width: fit-content;
@@ -50,7 +59,8 @@ export default {
             font-weight: 400;
         }
     }
-    .value-wrapper{
+
+    .value-wrapper {
         padding: 0 15px;
     }
 

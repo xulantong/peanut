@@ -3,13 +3,17 @@ import informationConfig from "./informationConfig"
 import DataTable from "./DataTable"
 import FiledContainer from "./FiledContainer"
 import PartContainer from "./PartContainer"
+import AreaContainer from "./AreaContainer"
+import ArrayContainer from "./ArrayContainer"
 
 export default {
     name: "ContentResolver",
     components: {
         DataTable,
         FiledContainer,
-        PartContainer
+        PartContainer,
+        AreaContainer,
+        ArrayContainer
     },
     props: {
         //模式

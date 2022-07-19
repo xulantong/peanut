@@ -127,30 +127,68 @@ export default [
                     {
                         label: "入职时间",
                         prop: "startTime",
-                        minWidth:100,
+                        queryIndex: "startTime",
                     },
                     {
                         label: "离职时间",
                         prop: "endTime",
-                        minWidth:100,
+                        queryIndex: "endTime",
+                        minWidth: 100,
 
                     },
                     {
                         label: "工作岗位",
                         prop: "post",
-                        minWidth:100,
+                        queryIndex: "post",
+                        minWidth: 100,
 
+                    }
+                ]
+
+            },
+            {
+                component: "AreaContainer",
+                dataIndex: "xmjlList",
+                areas: [
+                    {
+                        label: "工作单位",
+                        queryIndex: "compName",
+                        editable: false,
                     },
                     {
-                        label: "主要职能",
-                        prop: "workContent",
-                        minWidth:400
-                    }
+                        label: "项目名称",
+                        editable: false,
+                        queryIndex: "proName",
+                    },
+                    {
+                        label: "具体内容",
+                        editable: false,
+                        queryIndex: "proDetail",
+                        type: "textarea"
+                    },
                 ]
 
             }
         ]
     },
+    {
+        component: "PartContainer",
+        header: '个人能力评价',
+        children: [
+            {
+                component: "ArrayContainer",
+                dataIndex: "grpj",
+                label: "个人评价"
+
+            },
+            {
+                component: "ArrayContainer",
+                dataIndex: "zwjn",
+                label: "能力评价"
+
+            },
+        ]
+    }
 
 
 ]

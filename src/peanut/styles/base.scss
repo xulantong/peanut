@@ -1,0 +1,25 @@
+/**
+ * @description 全局基础样式
+ */
+/* stylelint-disable */
+@charset "utf-8";
+@import "./mixins/scrollbar.scss";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: calc(1em + 8px);
+}
+
+body {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", "微软雅黑", SimHei, sans-serif;
+    @include base-scrollbar;
+}
+
+div {
+    @include base-scrollbar;
+}

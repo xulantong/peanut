@@ -23,8 +23,10 @@
                         <el-radio-button :label="1">全部打开</el-radio-button>
                     </el-radio-group>
                 </div>
-                <content-resolver
-                    :edit="edit"/>
+                <div class="information-container-left-content">
+                    <content-resolver
+                        :edit="edit"/>
+                </div>
             </div>
             <div class="information-container-right"></div>
 
@@ -53,6 +55,10 @@ export default {
         ...mapState('information', ['dataInfo']),
     },
     methods: {
+        getData() {
+            //axios
+            this.$store.dispatch("information/setDataInfo", this.dataInfo)
+        },
         printInfo() {
 
         },
@@ -62,11 +68,12 @@ export default {
         },
         handleCancel() {
             this.edit = false
-            this.$store.commit("information/setDataInfo", this.dataInfoOrigin)
+            this.$store.dispatch("information/setDataInfo", this.dataInfoOrigin)
         },
         handleSave() {
             this.edit = false
-            this.$store.commit("information/setDataInfo", this.dataInfo)
+            //axios
+            this.getData()
         }
     }
 
@@ -78,6 +85,7 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
+    height: 100%;
     flex: 1;
 
     &-header {
@@ -98,17 +106,28 @@ export default {
         &-left {
             padding: 20px;
             flex: 0.7;
+            display: flex;
+            flex-direction: column;
 
             &-top {
                 display: flex;
                 align-items: center;
                 justify-content: flex-end;
+                padding-bottom: 8px;
             }
-            &-header{
+
+            &-header {
                 display: flex;
                 justify-content: center;
                 font-weight: 600;
                 font-size: 25px;
+            }
+
+            &-content {
+                height: 0;
+                flex: 1;
+                overflow-y: scroll;
+                margin-right: -20px;
             }
         }
 

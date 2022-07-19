@@ -49,7 +49,7 @@ export default {
                 let arr = JSON.parse(JSON.stringify(this.dataInfo[this.dataIndex]))
                 arr[this.index][this.column.property] = val
                 let obj = Object.assign({}, this.dataInfo, {[this.dataIndex]: arr})
-                this.$store.commit("information/setDataInfo",obj)
+                this.$store.dispatch("information/setDataInfo",obj)
             }
         },
         showValue() {

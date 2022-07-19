@@ -1,5 +1,5 @@
 <template>
-    <div class="FiledContainer">
+    <div class="FiledContainer" :class="{'column':!inline}">
         <template v-for="filed in fileds">
             <filed-item
                 v-bind="filed"
@@ -21,8 +21,12 @@ export default {
             type: Array,
             default: []
         },
-        edit:{
-            type:Boolean,
+        inline: {
+            type: Boolean,
+            default: true
+        },
+        edit: {
+            type: Boolean,
             default: false
         }
     },
@@ -35,11 +39,16 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-.FiledContainer{
+.FiledContainer {
     margin-bottom: 16px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+}
+
+.column {
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 </style>

@@ -20,15 +20,27 @@ const state = () => ({
                 startTime: "2021-07-05",
                 endTime: "2024-07-05",
                 post: "前端工程师",
-                workContent: "单活塞殴打哈萨克了电脑卡死电脑卡时间段卡拉是巨大的就上课了"
             },
             {
                 startTime: "2021-07-06",
                 endTime: "2024-07-07",
                 post: "JAVA工程师",
-                workContent: "动手术你打算狄拉克"
             }
-        ]
+        ],
+        xmjlList: [
+            {
+                compName: "生命起点",
+                proName: "DRG/DIP院端解决方案",
+                proDetail: "发的啥当老师打伞了电视剧咖第六届奥斯卡的理解洒落的爱神的箭撒库拉就打算开了多久奥斯卡鲁大师发的啥当老师打伞了电视剧咖第六届奥斯卡的理解洒落的爱神的箭撒库拉就打算开了多久奥斯卡鲁大师发的啥当老师打伞了电视剧咖第六届奥斯卡的理解洒落的爱神的箭撒库拉就打算开了多久奥斯卡鲁大师发的啥当老师打伞了电视剧咖第六届奥斯卡的理解洒落的爱神的箭撒库拉就打算开了多久奥斯卡鲁大师",
+            },
+            {
+                compName: "生命起点",
+                proName: "DRG/DIP院端解决方案",
+                proDetail: "发的啥当老师打伞了电视剧咖第六届奥斯卡的理解洒落的爱神的箭撒库拉就打算开了多久奥斯卡鲁大师",
+            },
+        ],
+        grpj: ["dhasjkldhslak", "dhasjkldhslak", "dhasjkldhslak"],
+        zwjn: ["4567890", "4567890", "4567890"]
     }
 })
 const getters = {}
@@ -37,5 +49,9 @@ const mutations = {
         state.dataInfo = dataInfo
     },
 }
-const actions = {}
+const actions = {
+    setDataInfo({commit}, dataInfo) {
+        commit("setDataInfo", dataInfo)
+    },
+}
 export default {state, getters, mutations, actions}

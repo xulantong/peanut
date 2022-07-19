@@ -1,15 +1,12 @@
 <template>
-    <div class="FiledItem">
-        <div class="FiledItem-label text-bold">{{ label }}:</div>
+    <div class="array-item">
         <auto-fit-editor
             v-if="editable&&edit"
             :value.sync="value"
-            :type="type"
-            :menu="menu"
             :showValue="showValue"
         >
         </auto-fit-editor>
-        <div class="FiledItem-value" v-else>{{ showValue || '-' }}</div>
+        <div class="array-item-value" v-else>{{ showValue || '-' }}</div>
     </div>
 </template>
 <script>
@@ -17,28 +14,20 @@ import AutoFitEditor from "./AutoFitEditor";
 import {mapState} from "vuex";
 
 export default {
-    name: "FiledItem",
+    name: "ArrayItem",
     components: {AutoFitEditor},
     props: {
         dataIndex: {
             type: String,
             default: ""
         },
-        label: {
+        item: {
             type: String,
             default: ""
         },
-        showMode: {
+        index: {
             type: Number,
             default: 0
-        },
-        type: {
-            type: String,
-            default: "string"
-        },
-        menu: {
-            type: String,
-            default: "string"
         },
         editable: {
             type: Boolean,
@@ -49,31 +38,28 @@ export default {
             default: false
         }
     },
-    inject: ["contentResolver"],
-
-    created() {
-        this.contentResolver.fieldItems[this.dataIndex] = this;
-    },
     computed: {
-        ...mapState('information', ['dataInfo']),
+        ...mapState("information", ["dataInfo"]),
         value: {
             get() {
-                return this.dataInfo[this.dataIndex]
+                return this.item
             },
             set(val) {
-                let obj = Object.assign({},this.dataInfo, {[this.dataIndex]: val})
-                this.$store.dispatch("information/setDataInfo",obj)
+                console.log(val)
+                let obj = JSON.parse(JSON.stringify(this.dataInfo))
+                obj[this.dataIndex][this.index] = val
+                this.$store.dispatch("information/setDataInfo", obj)
             }
         },
         showValue() {
             return this.value
         }
-    },
+    }
 }
 
 </script>
 <style lang="scss" scoped>
-.FiledItem {
+.array-item {
     height: 32px;
     margin-right: 32px;
     display: flex;
@@ -83,7 +69,8 @@ export default {
         white-space: nowrap;
         margin-right: 16px;
     }
-    &-value{
+
+    &-value {
         display: flex;
         align-items: center;
         padding: 0 4px;
