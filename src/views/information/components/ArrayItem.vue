@@ -65,10 +65,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .array-item {
-    height: 32px;
     margin-right: 32px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 
     &-label {
         white-space: nowrap;

@@ -24,9 +24,8 @@
                     </el-radio-group>
                 </div>
                 <div class="information-container-left-content">
-
                     <content-resolver
-                        class="content-resolver"
+                        id="content-resolver"
                         :edit="edit"
                         :mode="mode"/>
                     <el-backtop
@@ -66,6 +65,7 @@ export default {
             this.$store.dispatch("information/setDataInfo", this.dataInfo)
         },
         printInfo() {
+            this.getPdf("content-resolver", '个人简历')
         },
         handleEdit() {
             this.dataInfoOrigin = JSON.parse(JSON.stringify(this.dataInfo))
@@ -114,6 +114,7 @@ export default {
             flex: 1;
             display: flex;
             flex-direction: column;
+            position: relative;
 
             &-top {
                 display: flex;
@@ -135,6 +136,7 @@ export default {
                 overflow-y: scroll;
                 overflow-x: hidden;
                 margin-right: -20px;
+
             }
         }
 
