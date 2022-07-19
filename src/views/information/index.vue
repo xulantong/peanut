@@ -20,19 +20,25 @@
                 <div class="information-container-left-top">
                     <el-radio-group v-model="mode" size="mini">
                         <el-radio-button :label="0">简洁模式</el-radio-button>
-                        <el-radio-button :label="1">全部打开</el-radio-button>
+                        <el-radio-button :label="1">全部展开</el-radio-button>
                     </el-radio-group>
                 </div>
                 <div class="information-container-left-content">
+
                     <content-resolver
-                        :edit="edit"/>
+                        class="content-resolver"
+                        :edit="edit"
+                        :mode="mode"/>
+                    <el-backtop
+                        target=".information-container-left-content"
+                        :right="450"
+                    >
+                        <peanut-icon icon-name="backTop" style="margin-left: 10px" :size="50"></peanut-icon>
+                    </el-backtop>
                 </div>
             </div>
             <div class="information-container-right"></div>
-
-
         </div>
-
     </div>
 </template>
 <script>
@@ -60,7 +66,6 @@ export default {
             this.$store.dispatch("information/setDataInfo", this.dataInfo)
         },
         printInfo() {
-
         },
         handleEdit() {
             this.dataInfoOrigin = JSON.parse(JSON.stringify(this.dataInfo))
@@ -105,7 +110,8 @@ export default {
 
         &-left {
             padding: 20px;
-            flex: 0.7;
+            width: 0;
+            flex: 1;
             display: flex;
             flex-direction: column;
 
@@ -113,7 +119,7 @@ export default {
                 display: flex;
                 align-items: center;
                 justify-content: flex-end;
-                padding-bottom: 8px;
+                padding: 8px 0;
             }
 
             &-header {
@@ -127,6 +133,7 @@ export default {
                 height: 0;
                 flex: 1;
                 overflow-y: scroll;
+                overflow-x: hidden;
                 margin-right: -20px;
             }
         }
@@ -134,7 +141,10 @@ export default {
         &-right {
             border-top: 1px solid #F5F5F5;
             background-color: #FFFFFF;
-            flex: 0.3;
+            width: 400px;
+            padding: 8px;
+            overflow-x: hidden;
+            overflow-y: scroll;
         }
 
 

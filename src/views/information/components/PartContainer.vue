@@ -37,9 +37,9 @@ export default {
             background-color: #525252;
         }
         &-deliver{
-            height: 1px;
+            height: 2px;
             position: relative;
-            background-color: #2FD098;
+            background-color: #5EADFF;
             width: 100%;
         }
     }

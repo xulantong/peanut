@@ -26,7 +26,7 @@ export default {
     props: {
         cradColor: {
             type: String,
-            default: "#2FD098"
+            default: "#5EADFF"
         },
         workTitle: {
             type: String,

@@ -1,5 +1,6 @@
 <template>
     <div class="array-item">
+        <peanut-icon :icon-name="iconName" class="doubleRight" :size="25"></peanut-icon>
         <auto-fit-editor
             v-if="editable&&edit"
             :value.sync="value"
@@ -20,6 +21,10 @@ export default {
         dataIndex: {
             type: String,
             default: ""
+        },
+        iconName: {
+            type: String,
+            default: "doubleRight"
         },
         item: {
             type: String,
@@ -75,6 +80,10 @@ export default {
         align-items: center;
         padding: 0 4px;
         border-bottom: 2px #BFBFBF solid;
+    }
+    .doubleRight{
+        border-radius: 4px;
+        padding: 4px;
     }
 }
 

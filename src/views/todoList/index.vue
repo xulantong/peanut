@@ -230,7 +230,7 @@ export default {
     height: 100%;
     //width: 100%;
     background-color: aliceblue;
-    border: 1px #2FD098 solid;
+    border: 1px #5EADFF solid;
     border-radius: 4px;
 
     &-content {
@@ -252,7 +252,7 @@ export default {
         &-table {
             flex: 1;
             height: 0;
-            border: 1px #2FD098 solid;
+            border: 1px #5EADFF solid;
         }
     }
 

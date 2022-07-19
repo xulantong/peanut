@@ -87,6 +87,7 @@ export default [
             },
             {
                 component: "FiledContainer",
+                showMode: 1,
                 fileds: [
                     {
                         dataIndex: "lxfs",
@@ -149,6 +150,7 @@ export default [
             {
                 component: "AreaContainer",
                 dataIndex: "xmjlList",
+                showMode: 1,
                 areas: [
                     {
                         label: "工作单位",
@@ -178,12 +180,15 @@ export default [
             {
                 component: "ArrayContainer",
                 dataIndex: "grpj",
+                showMode: 1,
+                iconName: "doubleRight",
                 label: "个人评价"
 
             },
             {
                 component: "ArrayContainer",
                 dataIndex: "zwjn",
+                iconName: "star",
                 label: "能力评价"
 
             },

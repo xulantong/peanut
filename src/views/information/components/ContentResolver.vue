@@ -33,7 +33,19 @@ export default {
     },
     data() {
         return {
-            fieldItems:{},
+            // parts: [],
+            fieldItems: {},
+        }
+    },
+    mounted() {
+        this.toggleMode()
+    },
+    watch: {
+        mode: {
+            handler() {
+                this.toggleMode()
+            },
+            immediate: true
         }
     },
     provide() {
@@ -75,11 +87,34 @@ export default {
             //     this.parts.push(componentObj)
             // }
             return componentObj
+        },
+        toggleMode() {
+            console.log(this.parts)
+            // this.parts?.forEach((item) => {
+            //     item.componentInstance?.setCollapse?.(!this.mode)
+            // })
+            let nodes = this.$el?.getElementsByClassName('show-mode');
+            if (nodes) {
+                Array.prototype.forEach.call(nodes, (node) => {
+                    let className = node.getAttribute('class')
+                    let show = className?.split(' ').includes('mode-' + this.mode) ?? false
+                    let style = node.getAttribute('style') || ''
+                    style = style.replace(/(;)*display:\snone/, '')
+                    if (!show) {
+                        style += ';display: none'
+                    }
+                    if (!style) {
+                        node.removeAttribute('style')
+                    } else {
+                        node.setAttribute('style', style)
+                    }
+                })
+            }
+        },
 
-
-        }
     },
     render(h) {
+        // this.parts = []
         return (
             <div>
                 {informationConfig.map((item) => this.renderComponent(h, item))}
@@ -90,11 +125,8 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-.showMode{
-
-}
-.mode-1{
-    display: none;
-}
+//.mode-1 {
+//    display: none;
+//}
 
 </style>

@@ -39,7 +39,7 @@ export default {
     height: 99%;
     width: 200px;
     min-width: 10%;
-    border: 1px #2FD098 solid;
+    border: 1px #5EADFF solid;
     background-color: #FFFFFF;
 }
 

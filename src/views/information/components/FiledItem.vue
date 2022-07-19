@@ -61,8 +61,8 @@ export default {
                 return this.dataInfo[this.dataIndex]
             },
             set(val) {
-                let obj = Object.assign({},this.dataInfo, {[this.dataIndex]: val})
-                this.$store.dispatch("information/setDataInfo",obj)
+                let obj = Object.assign({}, this.dataInfo, {[this.dataIndex]: val})
+                this.$store.dispatch("information/setDataInfo", obj)
             }
         },
         showValue() {
@@ -75,7 +75,7 @@ export default {
 <style lang="scss" scoped>
 .FiledItem {
     height: 32px;
-    margin-right: 32px;
+    margin-right: 24px;
     display: flex;
     align-items: center;
 
@@ -83,12 +83,14 @@ export default {
         white-space: nowrap;
         margin-right: 16px;
     }
-    &-value{
+
+    &-value {
         display: flex;
         align-items: center;
         padding: 0 4px;
         border-bottom: 2px #BFBFBF solid;
     }
+
 }
 
 </style>

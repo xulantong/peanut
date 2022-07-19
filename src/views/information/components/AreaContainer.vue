@@ -119,7 +119,7 @@ export default {
     }
 
     .edit {
-        border: 1px #2FD098 solid;
+        border: 1px #5EADFF solid;
 
 
         &:hover {
