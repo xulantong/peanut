@@ -19,7 +19,7 @@ export default {
         sideRoutes() {
             if (this.originRoutes?.length) {
                 this.$router.push(this.originRoutes[0].children[0].fullPath)
-                return this.originRoutes
+                return this.originRoutes[0].children
             }
             this.$router.push(this.routes.filter(route => route.meta?.isTop == 'false')[0].children[0].fullPath)
             return this.routes.filter(route => route.meta?.isTop == 'false')
@@ -37,7 +37,7 @@ export default {
 <style lang="scss" scoped>
 .peanut-layout-side {
     height: 99%;
-    width: 200px;
+    width: 202px;
     min-width: 10%;
     border: 1px #5EADFF solid;
     background-color: #FFFFFF;
