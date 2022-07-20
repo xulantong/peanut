@@ -89,7 +89,6 @@ export default {
             return componentObj
         },
         toggleMode() {
-            console.log(this.parts)
             // this.parts?.forEach((item) => {
             //     item.componentInstance?.setCollapse?.(!this.mode)
             // })

@@ -50,7 +50,6 @@ export default {
                 return this.item
             },
             set(val) {
-                console.log(val)
                 let obj = JSON.parse(JSON.stringify(this.dataInfo))
                 obj[this.dataIndex][this.index] = val
                 this.$store.dispatch("information/setDataInfo", obj)

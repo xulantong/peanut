@@ -5,7 +5,7 @@
             v-if="editable&&edit"
             :value.sync="value"
             :type="type"
-            :menu="menu"
+            :enumKey="enumKey"
             :showValue="showValue"
         >
         </auto-fit-editor>
@@ -36,7 +36,7 @@ export default {
             type: String,
             default: "string"
         },
-        menu: {
+        enumKey: {
             type: String,
             default: "string"
         },
@@ -55,7 +55,7 @@ export default {
         this.contentResolver.fieldItems[this.dataIndex] = this;
     },
     computed: {
-        ...mapState('information', ['dataInfo']),
+        ...mapState('information', ['dataInfo', 'dicts']),
         value: {
             get() {
                 return this.dataInfo[this.dataIndex]
@@ -66,6 +66,12 @@ export default {
             }
         },
         showValue() {
+            if (this.type === 'cascader') {
+                if(this.dicts[this.enumKey]){
+                    return  this.$filterTree(this.dicts[this.enumKey], (obj) => obj.value === this.value)[0]?.label
+                }
+
+            }
             return this.value
         }
     },

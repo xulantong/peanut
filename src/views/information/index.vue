@@ -36,7 +36,20 @@
                     </el-backtop>
                 </div>
             </div>
-            <div class="information-container-right"></div>
+            <div class="information-container-right">
+                <div class="information-container-right-csdn">
+                    <div class="text-bold font-normal mark-title">CSDN</div>
+                    <pie-component/>
+                </div>
+                <div class="information-container-right-carousel">
+                    <div class="text-bold font-normal mb-8 mark-title">其他信息</div>
+                    <el-carousel autoplay :interval="2000" height="250px">
+                        <el-carousel-item v-for="item in imgList" :key="item">
+                            <el-image :src="item" fit="cover"></el-image>
+                        </el-carousel-item>
+                    </el-carousel>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -44,24 +57,48 @@
 
 import ContentResolver from "./components/ContentResolver";
 import {mapState} from "vuex";
+import PieComponent from "./components/PieComponent";
+import animal1 from "./images/animal1.png"
+import animal2 from "./images/animal2.png"
+import animal3 from "./images/animal3.png"
+import animal4 from "./images/animal4.png"
+import animal5 from "./images/animal5.png"
+import {getTree} from "../../api/information";
 
 export default {
     name: "information",
-    components: {ContentResolver},
+    components: {PieComponent, ContentResolver},
     data() {
         return {
             dataInfoOrigin: {},
             edit: false,
             mode: 0,
             saveLoading: false,
+            imgList: [
+                animal1,
+                animal2,
+                animal3,
+                animal4,
+                animal5
+            ]
         }
     },
     computed: {
         ...mapState('information', ['dataInfo']),
     },
+    mounted() {
+        getTree({}).then(res => {
+            this.addToDict("division", res?.result)
+        })
+    },
     methods: {
+        addToDict(key, value) {
+            let dicts = {}
+            this.$set(dicts, key, value)
+            this.$store.commit("information/setDict", dicts)
+        },
         getData() {
-            //axios
+            //todo axios
             this.$store.dispatch("information/setDataInfo", this.dataInfo)
         },
         printInfo() {
@@ -77,7 +114,7 @@ export default {
         },
         handleSave() {
             this.edit = false
-            //axios
+            //todo axios
             this.getData()
         }
     }
@@ -144,9 +181,13 @@ export default {
             border-top: 1px solid #F5F5F5;
             background-color: #FFFFFF;
             width: 400px;
-            padding: 8px;
             overflow-x: hidden;
             overflow-y: scroll;
+
+            &-carousel {
+                border-radius: 4px;
+            }
+
         }
 
 

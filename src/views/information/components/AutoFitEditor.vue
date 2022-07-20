@@ -1,10 +1,21 @@
 <template>
     <div class="AutoFitEditor">
-        <el-input v-model="modelValue"></el-input>
+        <el-input v-if="type === 'string'" v-model="modelValue"></el-input>
+        <el-cascader v-else-if="type === 'cascader'"
+                     :options="dictOptions"
+                     v-model="modelValue"
+                     :show-all-levels="false"
+                     :props="{
+                      checkStrictly:true,
+                      emitPath:false
+                     }"
+        ></el-cascader>
         <div class="value-wrapper">{{ showValue || '-' }}</div>
     </div>
 </template>
 <script>
+import {mapState} from "vuex";
+
 export default {
     name: "AutoFitEditor",
     props: {
@@ -14,12 +25,16 @@ export default {
             type: String,
             default: "string"
         },
-        menu: {
+        enumKey: {
             type: String,
             default: "string"
         },
     },
     computed: {
+        ...mapState("information", ["dicts"]),
+        dictOptions() {
+            return this.dicts[this.enumKey]
+        },
         modelValue: {
             get() {
                 return this.value
@@ -42,7 +57,13 @@ export default {
     position: relative;
     word-break: break-all;
 
-    .el-input,.el-textarea {
+    .el-cascader,
+    .el-select,
+    .el-date-editor,
+    .el-input-number,
+    .el-autocomplete,
+    .el-input,
+    .el-textarea {
         position: absolute;
         top: -4px;
         right: 0;
@@ -50,6 +71,10 @@ export default {
         left: 0;
         width: unset !important;
         height: fit-content;
+
+        .el-select__input {
+            margin-left: 4px;
+        }
 
         .el-input__inner, .el-textarea__inner {
             padding: 0 10px !important;
@@ -61,7 +86,7 @@ export default {
     }
 
     .value-wrapper {
-        padding: 0 15px;
+        padding: 0 25px;
     }
 
 }

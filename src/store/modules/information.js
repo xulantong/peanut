@@ -10,7 +10,7 @@ const state = () => ({
         byyx: "西安邮电大学",
         zyfx: "计算机科学与技术",
         qzgw: "Web前端工程师",
-        gzdd: "北京",
+        gzdd: "110000",
         lxfs: "18831785150",
         email: "1457501818@qq.com",
         csdn: "https://blog.csdn.net/niepan990810",
@@ -47,12 +47,20 @@ const state = () => ({
             "熟悉Es6，Es7等等新语法，熟练使用Div+css开发。"
         ]
     },
-    timeline: []
+    dicts: {},
 })
 const getters = {}
 const mutations = {
     setDataInfo(state, dataInfo) {
         state.dataInfo = dataInfo
+    },
+    setDict(state, dicts = {}) {
+        Object.keys(dicts).forEach(item => {
+            if (!state.dicts[item]) {
+                state.dicts = Object.assign({}, state.dicts, {[item]: dicts[item]})
+            }
+        })
+
     },
 }
 const actions = {

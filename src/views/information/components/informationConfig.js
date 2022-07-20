@@ -5,13 +5,13 @@ export default [
             {
                 dataIndex: "qzgw",
                 label: "求职岗位",
-                type: "string",
                 editable: true
             },
             {
                 dataIndex: "gzdd",
                 label: "工作地点",
-                type: "string",
+                type: "cascader",
+                enumKey: 'division',
                 editable: true
             },
         ],
@@ -150,7 +150,6 @@ export default [
             {
                 component: "AreaContainer",
                 dataIndex: "xmjlList",
-                showMode: 1,
                 areas: [
                     {
                         label: "工作单位",
