@@ -30,6 +30,7 @@
             :header-cell-class-name="headerCellClassName"
             :header-cell-style="headerCellStyle"
             @selection-change="handleSelectionChange"
+            @row-click="handleRowClick"
         >
             <slot name="columns"/>
             <div slot="empty">
@@ -63,8 +64,8 @@ export default {
             tableData: [],
             tableParams: [],
             total: 0,
-            currentPage:1,
-            pageSize:20,
+            currentPage: 1,
+            pageSize: 20,
             currentPageSize: null,
             sort: []
         }
@@ -146,7 +147,9 @@ export default {
             }
             this.$refs["table"].clearFilter(columnKeys);
         },
-
+        handleRowClick(val) {
+            if (val) this.$emit("row-click", val);
+        },
         handleSelectionChange(selection) {
             this.$emit("selectionChange", selection)
         },

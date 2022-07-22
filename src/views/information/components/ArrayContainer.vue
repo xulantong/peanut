@@ -1,7 +1,7 @@
 <template>
     <div class="array-container">
         <div class="text-bold mb-8 mt-16">{{ label }}</div>
-        <div class="ml-32" v-for="(item,index) in dataInfo[dataIndex]">
+        <div class="ml-32 mb-8" v-for="(item,index) in dataInfo[dataIndex]">
             <array-item
                 :dataIndex="dataIndex"
                 :item="item"

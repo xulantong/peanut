@@ -130,6 +130,6 @@ export default {
         imgSize: {
             type: Number,
             default: 150
-        }
+        },
     }
 }

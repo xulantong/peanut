@@ -228,7 +228,6 @@ export default {
 <style lang="scss" scoped>
 .todo-list {
     height: 100%;
-    //width: 100%;
     background-color: aliceblue;
     border: 1px #5EADFF solid;
     border-radius: 4px;
