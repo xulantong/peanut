@@ -9,7 +9,7 @@ const state = () => ({
         zzmm: "中共党员",
         byyx: "西安邮电大学",
         zyfx: "计算机科学与技术",
-        qzgw: "Web前端工程师",
+        qzgw: "web",
         gzdd: "110000",
         lxfs: "18831785150",
         email: "1457501818@qq.com",
@@ -60,6 +60,7 @@ const mutations = {
                 state.dicts = Object.assign({}, state.dicts, {[item]: dicts[item]})
             }
         })
+        console.log(state.dicts)
 
     },
 }

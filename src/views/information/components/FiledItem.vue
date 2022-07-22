@@ -67,10 +67,12 @@ export default {
         },
         showValue() {
             if (this.type === 'cascader') {
-                if(this.dicts[this.enumKey]){
-                    return  this.$filterTree(this.dicts[this.enumKey], (obj) => obj.value === this.value)[0]?.label
+                if (this.dicts[this.enumKey]) {
+                    return this.$filterTree(this.dicts[this.enumKey], (obj) => obj.value === this.value)[0]?.label
                 }
 
+            } else if (this.type === 'enum') {
+                return this.dicts[this.enumKey]?.find(item => item.key === this.value)?.value
             }
             return this.value
         }

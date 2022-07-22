@@ -1,6 +1,11 @@
 <template>
     <div class="AutoFitEditor">
         <el-input v-if="type === 'string'" v-model="modelValue"></el-input>
+        <el-select v-else-if="type === 'enum'" clearable v-model="modelValue">
+            <template v-for="item in dictOptions">
+                <el-option :value="item.key" :label="item.value"></el-option>
+            </template>
+        </el-select>
         <el-cascader v-else-if="type === 'cascader'"
                      :options="dictOptions"
                      v-model="modelValue"

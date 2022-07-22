@@ -63,7 +63,7 @@ import animal2 from "./images/animal2.png"
 import animal3 from "./images/animal3.png"
 import animal4 from "./images/animal4.png"
 import animal5 from "./images/animal5.png"
-import {getTree} from "../../api/information";
+import {getCacheDict, getTree} from "../../api/information";
 
 export default {
     name: "information",
@@ -89,6 +89,9 @@ export default {
     mounted() {
         getTree({}).then(res => {
             this.addToDict("division", res?.result)
+        })
+        getCacheDict().then(res => {
+            this.$store.commit("information/setDict", res.result)
         })
     },
     methods: {

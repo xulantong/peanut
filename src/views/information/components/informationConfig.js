@@ -5,7 +5,9 @@ export default [
             {
                 dataIndex: "qzgw",
                 label: "求职岗位",
-                editable: true
+                editable: true,
+                type: "enum",
+                enumKey:"qzgw"
             },
             {
                 dataIndex: "gzdd",
