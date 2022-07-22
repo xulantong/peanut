@@ -41,6 +41,7 @@ export default {
             this.$emit("handleSearch")
         },
         handleReset() {
+            this.handleSearch()
             this.$emit("handleReset")
         }
     }

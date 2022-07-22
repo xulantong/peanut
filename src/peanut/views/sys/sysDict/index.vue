@@ -7,8 +7,21 @@
                     @handleSearch="handleSearch"
                     @handleReset="handleReset"
                 >
-                    <div>筛选条件：
-                        <el-input style="width: 150px"></el-input>
+                    <div>字典名称：
+                        <el-select
+                            v-model="codes"
+                            clearable
+                            filterable
+                            collapse-tags
+                            multiple
+                        >
+                            <template v-for="item in codeOptions">
+                                <el-option
+                                    :label="item.name"
+                                    :value="item.code"
+                                ></el-option>
+                            </template>
+                        </el-select>
                     </div>
                 </peanut-search-form>
             </div>
@@ -18,13 +31,14 @@
                     class="h-100"
                     show-tool-bar
                     :list-func="getListLeft"
-                    @selectionChange="selectionChange"
+                    @selectionChange="selectionLeftChange"
                     @row-click="handleRowClick"
                 >
-                    <div slot="toolLeft" class="mark-title">字典列表</div>
+                    <div slot="toolLeft" class="mark-title">字典列表（点击每行查看字典键值信息）</div>
                     <div slot="toolRight" class="pr-8">
                         <el-button type="primary" @click="handleAppend('left')">新增</el-button>
-                        <el-button type="danger" @click="handleDelete('left')">删除</el-button>
+                        <el-button type="danger" :disabled="!selectionLeft.length" @click="handleDelete('left')">删除
+                        </el-button>
                     </div>
                     <template slot="columns">
                         <el-table-column type="selection" width="40" fixed/>
@@ -52,13 +66,25 @@
                     class="h-100"
                     show-tool-bar
                     :list-func="getListRight"
+                    @selectionChange="selectionRightChange"
                 >
                     <div slot="toolLeft" class="mark-title">字典数据</div>
                     <div slot="toolRight" class="pr-8">
                         <el-button type="primary" @click="handleAppend('right')">新增</el-button>
-                        <el-button type="danger" @click="handleDelete('left')">删除</el-button>
+                        <el-button type="danger" :disabled="!selectionRight.length" @click="handleDelete('right')">删除
+                        </el-button>
                     </div>
-
+                    <template slot="columns">
+                        <el-table-column type="selection" width="40" fixed/>
+                        <el-table-column
+                            prop="key"
+                            label="键"
+                        ></el-table-column>
+                        <el-table-column
+                            prop="value"
+                            label="值"
+                        ></el-table-column>
+                    </template>
                 </peanut-remote-table>
             </div>
         </div>
@@ -95,11 +121,11 @@
             <el-form :model="rightModel" ref="rightModel" label-width="80px">
                 <el-form-item label="键：" prop="key"
                               :rules="[{required:true,message:'key不能为空',trigger:['input','change']}]">
-                    <el-input v-model="leftModel.key"></el-input>
+                    <el-input v-model="rightModel.key"></el-input>
                 </el-form-item>
                 <el-form-item label="值：" prop="value"
                               :rules="[{required:true,message:'value不能为空',trigger:['input','change']}]">
-                    <el-input v-model="leftModel.value"></el-input>
+                    <el-input v-model="rightModel.value"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
@@ -110,43 +136,71 @@
     </div>
 </template>
 <script>
-import {getDict} from "../../../api/sysDict";
+import {
+    appendDict,
+    appendValue,
+    deleteDict,
+    deleteValue,
+    getAllDict,
+    getDict,
+    getDictValue
+} from "../../../api/sysDict";
 
 export default {
     name: "sysDict",
     data() {
         return {
+            codes: [],
+            codeOptions: [],
             visibleLeft: false,
             visibleRight: false,
             title: "",
             leftModel: {},
             rightModel: {},
-            selection: [],
+            selectionLeft: [],
+            selectionRight: [],
+            currentRow: {},
             submitCallback: () => {
             }
         }
     },
     mounted() {
+        this.getDuctOptions()
         this.$refs.leftTable.reload()
     },
     methods: {
+        getDuctOptions() {
+            getAllDict().then(res => {
+                this.codeOptions = res.result || []
+            })
+        },
         getListLeft(params) {
-            return getDict(params)
+            return getDict({...params, codes: this.codes}).then(res => {
+                this.currentRow = res?.result[0]
+                this.$refs.rightTable.reload()
+                this.getDuctOptions()
+                return res
+            })
         },
         getListRight(params) {
+            return getDictValue({...params, code: this.currentRow.code})
         },
         handleSearch() {
-
+            this.$refs.leftTable.reload()
         },
         handleReset() {
-
+            this.codes = []
         },
         //获得选中项
-        selectionChange(selection) {
-            this.selection = selection
+        selectionLeftChange(selection) {
+            this.selectionLeft = selection
+        },
+        selectionRightChange(selection) {
+            this.selectionRight = selection
         },
         handleRowClick(val) {
-            console.log(val)
+            this.currentRow = val
+            this.$refs.rightTable.reload()
         },
         handleAppend(type) {
             this.title = "新增"
@@ -156,7 +210,14 @@ export default {
                     this.$refs.leftModel.validate(valid => {
                         if (valid) {
                             console.log(this.leftModel)
-                            this.$message.success("成功")
+                            appendDict(this.leftModel).then(res => {
+                                this.$message.success(res.msg)
+                            }).catch(e => {
+                                this.$message.error(e)
+                            }).finally(() => {
+                                this.visibleLeft = false
+                                this.$refs.leftTable.reload()
+                            })
                         } else {
                             return false
                         }
@@ -167,8 +228,14 @@ export default {
                 this.submitCallback = () => {
                     this.$refs.rightModel.validate(valid => {
                         if (valid) {
-                            console.log(this.rightModel)
-                            this.$message.success("成功")
+                            appendValue({code: this.currentRow.code, ...this.rightModel}).then(res => {
+                                this.$message.success(res.msg)
+                            }).catch(e => {
+                                this.$message.error(e)
+                            }).finally(() => {
+                                this.visibleRight = false
+                                this.$refs.rightTable.reload()
+                            })
                         } else {
                             return false
                         }
@@ -177,7 +244,31 @@ export default {
             }
         },
         handleDelete(type) {
+            if (type === 'left') {
+                let params = {
+                    codes: this.selectionLeft.map(item => item.code)
+                }
+                deleteDict(params).then(res => {
+                    this.$message.success(res.msg)
+                }).catch(e => {
+                    this.$message.error(e)
+                }).finally(() => {
+                    this.$refs.leftTable.reload()
+                })
+            } else {
+                let params = {
+                    keys: this.selectionRight.map(item => item.key),
+                    code: this.currentRow.code
+                }
+                deleteValue(params).then(res => {
+                    this.$message.success(res.msg)
+                }).catch(e => {
+                    this.$message.error(e)
+                }).finally(() => {
+                    this.$refs.rightTable.reload()
+                })
 
+            }
         }
     }
 }

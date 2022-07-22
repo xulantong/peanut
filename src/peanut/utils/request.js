@@ -37,6 +37,11 @@ instance.uploadForm = function (url, data, config = {}) {
 
 instance.interceptors.response.use((response) => {
     const {data} = response
-    return data
+    const {code, msg} = data;
+    if(!code||[200].includes(code)){
+        return data
+    }else {
+        return Promise.reject(msg||"error")
+    }
 })
 export default instance
