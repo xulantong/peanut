@@ -3,6 +3,8 @@
         <auto-fit-editor
             v-if="editable&&edit"
             :value.sync="value"
+            :type="type"
+            :enumKey="enumKey"
             :show-value="showValue">
         </auto-fit-editor>
         <div class="FiledItem-value" v-else>{{ showValue || '-' }}</div>
@@ -11,6 +13,7 @@
 <script>
 import AutoFitEditor from "./AutoFitEditor";
 import {mapState} from "vuex";
+import dayjs from "dayjs";
 
 export default {
     name: "DataTableCell",
@@ -29,6 +32,14 @@ export default {
             type: Boolean,
             default: false
         },
+        type: {
+            type: String,
+            default: "string"
+        },
+        enumKey: {
+            type: String,
+            default: "string"
+        },
         editable: {
             type: Boolean,
             default: true
@@ -40,7 +51,7 @@ export default {
         },
     },
     computed: {
-        ...mapState("information", ['dataInfo']),
+        ...mapState("information", ['dataInfo','dicts']),
         value: {
             get() {
                 return this.row[this.column.property]
@@ -53,6 +64,16 @@ export default {
             }
         },
         showValue() {
+            if (this.type === 'cascader') {
+                if (this.dicts[this.enumKey]) {
+                    return this.$filterTree(this.dicts[this.enumKey], (obj) => obj.value === this.value)[0]?.label
+                }
+
+            } else if (this.type === 'enum') {
+                return this.dicts[this.enumKey]?.find(item => item.key === this.value)?.value
+            } else if (this.type === 'date') {
+                return dayjs(parseInt(this.value)).format("YYYY-MM-DD")
+            }
             return this.value
         }
     }

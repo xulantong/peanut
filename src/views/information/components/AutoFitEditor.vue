@@ -1,7 +1,8 @@
 <template>
     <div class="AutoFitEditor">
-        <el-input v-if="type === 'string'" v-model="modelValue"></el-input>
-        <el-select v-else-if="type === 'enum'" clearable v-model="modelValue">
+        <el-input v-if="type === 'string'" clearable v-model="modelValue"></el-input>
+        <el-date-picker v-if="type === 'date'" value-format="timestamp" format="yyyy-MM-dd" v-model="modelValue"></el-date-picker>
+        <el-select v-else-if="type === 'enum'" type="date" clearable v-model="modelValue">
             <template v-for="item in dictOptions">
                 <el-option :value="item.key" :label="item.value"></el-option>
             </template>
@@ -9,7 +10,6 @@
         <el-cascader v-else-if="type === 'cascader'"
                      :options="dictOptions"
                      v-model="modelValue"
-                     :show-all-levels="false"
                      :props="{
                       checkStrictly:true,
                       emitPath:false
@@ -91,7 +91,7 @@ export default {
     }
 
     .value-wrapper {
-        padding: 0 25px;
+        padding: 0 30px;
     }
 
 }

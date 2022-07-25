@@ -209,7 +209,6 @@ export default {
                 this.submitCallback = () => {
                     this.$refs.leftModel.validate(valid => {
                         if (valid) {
-                            console.log(this.leftModel)
                             appendDict(this.leftModel).then(res => {
                                 this.$message.success(res.msg)
                             }).catch(e => {

@@ -2,8 +2,9 @@
  * 过滤树形结构
  *
  */
-export function filterTree(tree, filter, children = "children") {
+export function filterTree(targetTree, filter, children = "children") {
     let arr = [];
+    let tree = JSON.parse(JSON.stringify(targetTree))
     if (tree.length) {
         tree.forEach(item => {
             if (!filter || filter(item)) {

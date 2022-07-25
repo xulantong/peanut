@@ -1,12 +1,12 @@
 const state = () => ({
     dataInfo: {
         name: "花生",
-        csrq: "1999-08-10",
+        csrq: "1658718362417",
         age: '23',
-        sex: "男",
+        sex: "1",
         jg: "河北省沧州市",
-        xl: "大学本科",
-        zzmm: "中共党员",
+        xl: "bk",
+        zzmm: "zgdy",
         byyx: "西安邮电大学",
         zyfx: "计算机科学与技术",
         qzgw: "web",
@@ -17,14 +17,14 @@ const state = () => ({
         github: "https://github.com/xulantong?tab=repositories",
         gzjlList: [
             {
-                startTime: "2021-07-05",
-                endTime: "2024-07-05",
-                post: "前端工程师",
+                startTime: "1658718362417",
+                endTime: "1658718362417",
+                post: "web",
             },
             {
-                startTime: "2021-07-06",
-                endTime: "2024-07-07",
-                post: "JAVA工程师",
+                startTime: "1658718362417",
+                endTime: "1658718362417",
+                post: "web",
             }
         ],
         xmjlList: [
@@ -60,7 +60,6 @@ const mutations = {
                 state.dicts = Object.assign({}, state.dicts, {[item]: dicts[item]})
             }
         })
-        console.log(state.dicts)
 
     },
 }

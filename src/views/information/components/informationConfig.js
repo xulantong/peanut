@@ -35,7 +35,7 @@ export default [
                         dataIndex: "csrq",
                         label: "出生日期",
                         showStar: true,
-                        type: "string"
+                        type: "date"
                     },
                     {
                         dataIndex: "age",
@@ -47,7 +47,8 @@ export default [
                         dataIndex: "sex",
                         label: "性别",
                         showStar: true,
-                        type: "string"
+                        type: "enum",
+                        enumKey:"xb"
                     },
                     {
                         dataIndex: "jg",
@@ -64,14 +65,16 @@ export default [
                     {
                         dataIndex: "xl",
                         label: "学历",
-                        type: "string",
-                        editable: true
+                        editable: true,
+                        type: "enum",
+                        enumKey:"xl"
                     },
                     {
                         dataIndex: "zzmm",
                         label: "政治面貌",
-                        type: "string",
-                        editable: true
+                        type: "enum",
+                        editable: true,
+                        enumKey: "zzmm"
                     },
                     {
                         dataIndex: "byyx",
@@ -131,12 +134,14 @@ export default [
                         label: "入职时间",
                         prop: "startTime",
                         queryIndex: "startTime",
+                        type:"date"
                     },
                     {
                         label: "离职时间",
                         prop: "endTime",
                         queryIndex: "endTime",
                         minWidth: 100,
+                        type:"date"
 
                     },
                     {
@@ -144,6 +149,8 @@ export default [
                         prop: "post",
                         queryIndex: "post",
                         minWidth: 100,
+                        type: "enum",
+                        enumKey:"qzgw"
 
                     }
                 ]

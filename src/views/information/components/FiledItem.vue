@@ -15,6 +15,7 @@
 <script>
 import AutoFitEditor from "./AutoFitEditor";
 import {mapState} from "vuex";
+import dayjs from "dayjs";
 
 export default {
     name: "FiledItem",
@@ -73,6 +74,8 @@ export default {
 
             } else if (this.type === 'enum') {
                 return this.dicts[this.enumKey]?.find(item => item.key === this.value)?.value
+            } else if (this.type === 'date') {
+                return dayjs(parseInt(this.value)).format("YYYY-MM-DD")
             }
             return this.value
         }
