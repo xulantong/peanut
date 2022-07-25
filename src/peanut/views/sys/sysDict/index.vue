@@ -30,6 +30,7 @@
                     ref="leftTable"
                     class="h-100"
                     show-tool-bar
+                    highlight-current-row
                     :list-func="getListLeft"
                     @selectionChange="selectionLeftChange"
                     @row-click="handleRowClick"
