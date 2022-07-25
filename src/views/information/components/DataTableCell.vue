@@ -4,7 +4,10 @@
             v-if="editable&&edit"
             :value.sync="value"
             :type="type"
+            :dataIndex="dataIndex"
+            :index="index"
             :enumKey="enumKey"
+            :options="options"
             :show-value="showValue">
         </auto-fit-editor>
         <div class="FiledItem-value" v-else>{{ showValue || '-' }}</div>
@@ -49,6 +52,7 @@ export default {
             type: Number,
             default: 0
         },
+        options:{}
     },
     computed: {
         ...mapState("information", ['dataInfo','dicts']),

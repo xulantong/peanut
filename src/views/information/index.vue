@@ -63,7 +63,8 @@ import animal2 from "./images/animal2.png"
 import animal3 from "./images/animal3.png"
 import animal4 from "./images/animal4.png"
 import animal5 from "./images/animal5.png"
-import {getCacheDict, getTree} from "../../api/information";
+import {getCacheDict, getInfo, getTree, saveInfo} from "../../api/information";
+import request from "../../peanut/utils/request";
 
 export default {
     name: "information",
@@ -87,6 +88,7 @@ export default {
         ...mapState('information', ['dataInfo']),
     },
     mounted() {
+        this.getData()
         getTree({}).then(res => {
             this.addToDict("division", res?.result)
         })
@@ -101,8 +103,9 @@ export default {
             this.$store.commit("information/setDict", dicts)
         },
         getData() {
-            //todo axios
-            this.$store.dispatch("information/setDataInfo", this.dataInfo)
+            getInfo().then().then(res => {
+                this.$store.dispatch("information/setDataInfo", res.result)
+            })
         },
         printInfo() {
             this.getPdf("content-resolver", '个人简历')
@@ -117,8 +120,15 @@ export default {
         },
         handleSave() {
             this.edit = false
-            //todo axios
-            this.getData()
+            this.saveLoading = true
+            saveInfo(this.dataInfo).then(res => {
+                this.$message.success(res.msg)
+                this.getData()
+            }).catch(e => {
+                console.log(e || e.msg)
+            }).finally(()=>{
+                this.saveLoading = false
+            })
         }
     }
 

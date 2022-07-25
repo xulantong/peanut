@@ -6,7 +6,7 @@
             border
             tooltip-effect="light"
         >
-            <template v-for="({prop,label,width,minWidth,editable,type,enumKey}) in columns">
+            <template v-for="({prop,label,width,minWidth,editable,type,enumKey,options}) in columns">
                 <el-table-column
                     :prop="prop"
                     :width="width"
@@ -20,6 +20,7 @@
                             :row="row"
                             :type="type"
                             :enumKey="enumKey"
+                            :options="options"
                             :edit="edit"
                             :column="column"
                             :index="$index"

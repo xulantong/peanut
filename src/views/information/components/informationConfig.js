@@ -7,7 +7,7 @@ export default [
                 label: "求职岗位",
                 editable: true,
                 type: "enum",
-                enumKey:"qzgw"
+                enumKey: "qzgw"
             },
             {
                 dataIndex: "gzdd",
@@ -48,7 +48,7 @@ export default [
                         label: "性别",
                         showStar: true,
                         type: "enum",
-                        enumKey:"xb"
+                        enumKey: "xb"
                     },
                     {
                         dataIndex: "jg",
@@ -67,7 +67,7 @@ export default [
                         label: "学历",
                         editable: true,
                         type: "enum",
-                        enumKey:"xl"
+                        enumKey: "xl"
                     },
                     {
                         dataIndex: "zzmm",
@@ -134,14 +134,24 @@ export default [
                         label: "入职时间",
                         prop: "startTime",
                         queryIndex: "startTime",
-                        type:"date"
+                        type: "date",
+                        options: {
+                            pickerOptions(time, list) {
+                                return time >= parseInt(list['endTime'])
+                            }
+                        }
                     },
                     {
                         label: "离职时间",
                         prop: "endTime",
                         queryIndex: "endTime",
                         minWidth: 100,
-                        type:"date"
+                        type: "date",
+                        options: {
+                            pickerOptions(time, list) {
+                                return time <= parseInt(list['startTime'])
+                            }
+                        }
 
                     },
                     {
@@ -150,7 +160,7 @@ export default [
                         queryIndex: "post",
                         minWidth: 100,
                         type: "enum",
-                        enumKey:"qzgw"
+                        enumKey: "qzgw"
 
                     }
                 ]

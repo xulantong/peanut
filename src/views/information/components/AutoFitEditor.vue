@@ -1,7 +1,8 @@
 <template>
     <div class="AutoFitEditor">
         <el-input v-if="type === 'string'" clearable v-model="modelValue"></el-input>
-        <el-date-picker v-if="type === 'date'" value-format="timestamp" format="yyyy-MM-dd" v-model="modelValue"></el-date-picker>
+        <el-date-picker v-if="type === 'date'" :picker-options="pickerOptions" value-format="timestamp"
+                        format="yyyy-MM-dd" v-model="modelValue"></el-date-picker>
         <el-select v-else-if="type === 'enum'" type="date" clearable v-model="modelValue">
             <template v-for="item in dictOptions">
                 <el-option :value="item.key" :label="item.value"></el-option>
@@ -34,9 +35,27 @@ export default {
             type: String,
             default: "string"
         },
+        dataIndex: {
+            type: String,
+            default: ""
+        },
+        index: {
+            type: Number,
+            default: 0
+        },
+        options: {}
+    },
+    data() {
+        return {
+            pickerOptions: {
+                disabledDate: (time) => {
+                    return this.options.pickerOptions(time.getTime(), this.dataInfo[this.dataIndex][this.index])
+                }
+            }
+        }
     },
     computed: {
-        ...mapState("information", ["dicts"]),
+        ...mapState("information", ['dataInfo', "dicts"]),
         dictOptions() {
             return this.dicts[this.enumKey]
         },
@@ -49,9 +68,6 @@ export default {
             }
         }
     },
-    mounted() {
-    }
-
 }
 
 </script>
