@@ -1,7 +1,7 @@
 <template>
     <el-menu-item :index="item.fullPath">
         <peanut-icon v-if="item.meta.icon" :icon-name="item.meta.icon"></peanut-icon>
-        <span slot="title">{{ item.meta && item.meta.title }}</span>
+        <span slot="title">{{ item.text || item.meta.title }}</span>
     </el-menu-item>
 </template>
 <script>

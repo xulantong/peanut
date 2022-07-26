@@ -4,7 +4,7 @@
             <el-menu mode="horizontal" background-color="#5EADFF" text-color="#303133" style="border: none" @select="handleSelect">
                 <template v-for="item in topRoutes">
                     <el-menu-item :index="item.path"><span class="text-bold font-bold"> <peanut-icon
-                        v-if="item.meta.icon" :icon-name="item.meta.icon"></peanut-icon>{{ item.meta.title }}</span>
+                        v-if="item.meta.icon" :icon-name="item.meta.icon"></peanut-icon>{{ item.text || item.meta.title }}</span>
                     </el-menu-item>
                 </template>
             </el-menu>

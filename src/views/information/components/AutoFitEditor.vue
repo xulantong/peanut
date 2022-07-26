@@ -49,7 +49,7 @@ export default {
         return {
             pickerOptions: {
                 disabledDate: (time) => {
-                    return this.options.pickerOptions(time.getTime(), this.dataInfo[this.dataIndex][this.index])
+                    return this.options?.pickerOptions(time.getTime(), this.dataInfo[this.dataIndex][this.index])
                 }
             }
         }

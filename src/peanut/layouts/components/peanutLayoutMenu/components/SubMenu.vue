@@ -5,7 +5,7 @@
         :popper-append-to-body="false">
         <template slot="title">
             <peanut-icon v-if="item.meta.icon" :icon-name="item.meta.icon"></peanut-icon>
-            <span>{{ item.meta && item.meta.title }}</span>
+            <span>{{ item.text || item.meta.title }}</span>
         </template>
         <slot/>
     </el-submenu>

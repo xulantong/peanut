@@ -10,7 +10,7 @@ export function filterTree(targetTree, filter, children = "children") {
             if (!filter || filter(item)) {
                 arr.push(item);
             }
-            if (item[children]&&item[children]?.length) {
+            if (item[children] && item[children]?.length) {
                 item[children] = filterTree(item[children], filter, children);
             } else {
                 item[children] = null;
@@ -33,4 +33,15 @@ export function forEachTree(tree, resolver, children = "children") {
             }
         });
     }
+}
+
+/**
+ * 深度拷贝
+ *
+ */
+export function deepCloneWithJson(obj) {
+    if (!obj) {
+        return null
+    }
+    return JSON.parse(JSON.stringify(obj))
 }

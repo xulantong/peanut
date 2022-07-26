@@ -125,7 +125,7 @@ export default {
                 this.$message.success(res.msg)
                 this.getData()
             }).catch(e => {
-                console.log(e || e.msg)
+                this.$message.warning(e||e.mag)
             }).finally(()=>{
                 this.saveLoading = false
             })
