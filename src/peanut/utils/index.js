@@ -45,3 +45,21 @@ export function deepCloneWithJson(obj) {
     }
     return JSON.parse(JSON.stringify(obj))
 }
+/**
+ * 根据条件修改树形数据
+ *
+ */
+export function changeTree(targetTree, filter, callBack, children = 'children') {
+    if (!targetTree) {
+        return null
+    }
+    let tree = this.$deepCloneWithJson(targetTree)
+    tree.forEach(item => {
+        if (filter(item)) {
+            callBack(item)
+        } else {
+            item[children] = item[children] && this.changeTree(item[children], filter, callBack, children)
+        }
+    })
+    return tree
+}

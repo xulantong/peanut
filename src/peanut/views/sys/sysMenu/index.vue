@@ -3,14 +3,16 @@
         <div class="sys-menu-left">
             <div class="sys-menu-left-header">菜单树</div>
             <div class="sys-menu-left-tree">
-                <el-tree :data="menuTree" accordion :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                <el-tree :data="menuTree" accordion node-key="id" :default-expanded-keys="['-1']"
+                         :props="defaultProps" @node-click="handleNodeClick"></el-tree>
             </div>
         </div>
         <div class="sys-menu-right">
             <div class="sys-menu-right-header">
-                <el-button type="success" :disabled="selection.length !== 1" @click="handleClickEdit">编辑</el-button>
-                <el-button type="primary">新增</el-button>
-                <el-button type="danger" :disabled="!selection.length">删除</el-button>
+                <el-button type="success" :disabled="selection.length !== 1" @click="handleClickEdit('edit')">编辑
+                </el-button>
+                <el-button type="primary" @click="handleClickEdit('add')">新增</el-button>
+                <el-button type="danger" :disabled="!selection.length" @click="handleClickDelete">删除</el-button>
             </div>
             <div class="sys-menu-right-table">
                 <el-table
@@ -46,9 +48,11 @@
         <el-dialog
             :visible.sync="visible"
             :title="title"
+            @close="formData = {meta: {}}"
             width="48%"
         >
-            <el-form :model="formData" ref="form" :rules="rules" class="form" label-width="auto" hide-required-asterisk>
+            <el-form :model="formData" ref="form" :rules="rules" class="form" label-width="180px"
+                     hide-required-asterisk>
                 <el-form-item label="编码(name)" prop="name" style="width: fit-content">
                     <el-input v-model="formData.name"></el-input>
                 </el-form-item>
@@ -61,20 +65,23 @@
                 <el-form-item label="菜单名称(text)" prop="text" style="width: fit-content">
                     <el-input v-model="formData.text"></el-input>
                 </el-form-item>
-                <el-form-item label="菜单图标(icon)" prop="icon" style="width: fit-content">
+                <el-form-item label="菜单图标(icon)" prop="['meta']['icon']" style="width: fit-content">
                     <el-input v-model="formData['meta']['icon']"></el-input>
                 </el-form-item>
-                <el-form-item label="是否顶部" prop="isTop" style="width: fit-content">
+                <el-form-item label="是否顶部" prop="['meta']['isTop']" style="width: fit-content">
                     <el-input v-model="formData['meta']['isTop']"></el-input>
                 </el-form-item>
             </el-form>
-
+            <div slot="footer" class="text-right">
+                <el-button plain @click="visible = false">取消</el-button>
+                <el-button type="primary" @click="saveCallBack">保存</el-button>
+            </div>
         </el-dialog>
     </div>
 
 </template>
 <script>
-import {getMenuTree} from "../../../api/sys";
+import {changeMenuTree, getMenuTree} from "../../../api/sys";
 
 export default {
     name: "sysMenu",
@@ -89,6 +96,7 @@ export default {
             selection: [],
             visible: false,
             title: "",
+            currentId: "-1",
             formData: {
                 meta: {}
             },
@@ -113,6 +121,9 @@ export default {
                         required: true, message: "请输入菜单图标", trigger: ["input", "change"]
                     }
                 ]
+            },
+            saveCallBack: () => {
+
             }
         }
     },
@@ -120,6 +131,8 @@ export default {
         menuTree() {
             let obj = {
                 text: '全部菜单',
+                name: "all",
+                id: "-1",
                 children: this.routes
             }
             this.menuTable = this.routes
@@ -136,17 +149,76 @@ export default {
             })
         },
         handleNodeClick(val) {
-            this.menuTable = val.children || []
+            this.currentId = val.id
+            this.menuTable = val.children
         },
         handleSelectionChange(val) {
             this.selection = val
         },
-        handleClickEdit() {
+        handleClickEdit(type) {
             this.visible = true
-            this.title = "编辑菜单"
-            this.formData = this.$deepCloneWithJson(this.selection[0])
-            console.log(this.formData)
-        }
+            if (type === 'add') {
+                this.title = "新增菜单"
+                this.formData = {
+                    meta: {}
+                }
+                this.saveCallBack = () => {
+                    let tree = this.changeTree(this.menuTree, (item) => item.id === this.currentId, (item) => item.children && item.children.push(this.formData));
+                    changeMenuTree(tree[0].children).then(res => {
+                        this.$message.success(res.msg)
+                        this.getMenu()
+                    }).catch(e => {
+                        this.$message.error(e || e.msg)
+                    })
+                }
+            } else {
+                this.title = "编辑菜单"
+                this.formData = this.$deepCloneWithJson(this.selection[0])
+                this.saveCallBack = () => {
+                    let tree = this.changeTree(this.menuTree, (item) => item.id === this.formData.id, (item) => Object.assign(item, this.formData));
+                    changeMenuTree(tree[0].children).then(res => {
+                        this.$message.success(res.msg)
+                        this.getMenu()
+                    }).catch(e => {
+                        this.$message.error(e || e.msg)
+                    })
+                }
+            }
+        },
+        handleClickDelete() {
+            this.$confirm("确认删除路由吗？", "温馨提示").then(() => {
+                let tree = this.$deepCloneWithJson(this.menuTree)
+                this.selection.map(item => item.id).forEach(select => {
+                    tree = this.changeTree(tree, item => item.id === select, item => item.splice(item.findIndex(item1 => item1.id === select), 1), "children", "parent")
+                })
+                changeMenuTree(tree[0].children).then(res => {
+                    this.$message.success(res.msg)
+                    this.getMenu()
+                }).catch(e => {
+                    this.$message.error(e || e.msg)
+                })
+            }).catch(() => {
+
+            })
+        },
+        changeTree(targetTree, filter, callBack, children = 'children', type = "children") {
+            if (!targetTree) {
+                return null
+            }
+            let tree = this.$deepCloneWithJson(targetTree)
+            tree.forEach(item => {
+                if (filter(item)) {
+                    if (type === "children") {
+                        callBack(item)
+                    } else {
+                        callBack(tree)
+                    }
+                } else {
+                    item[children] = item[children] && this.changeTree(item[children], filter, callBack, children, type)
+                }
+            })
+            return tree
+        },
     }
 }
 
@@ -204,7 +276,7 @@ export default {
 
     .form {
         display: flex;
-        justify-content: space-between;
+        //justify-content: space-between;
         flex-wrap: wrap;
     }
 }
