@@ -69,7 +69,12 @@
                     <el-input v-model="formData['meta']['icon']"></el-input>
                 </el-form-item>
                 <el-form-item label="是否顶部" prop="['meta']['isTop']" style="width: fit-content">
-                    <el-input v-model="formData['meta']['isTop']"></el-input>
+<!--                    <el-input v-model="formData['meta']['isTop']"></el-input>-->
+                    <el-switch
+                        v-model="formData['meta']['isTop']"
+                        active-color="#13ce66"
+                        inactive-color="#ff4949">
+                    </el-switch>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="text-right">
@@ -170,6 +175,7 @@ export default {
                     }).catch(e => {
                         this.$message.error(e || e.msg)
                     })
+                    this.visible = false
                 }
             } else {
                 this.title = "编辑菜单"
@@ -182,6 +188,7 @@ export default {
                     }).catch(e => {
                         this.$message.error(e || e.msg)
                     })
+                    this.visible = false
                 }
             }
         },
@@ -196,6 +203,8 @@ export default {
                     this.getMenu()
                 }).catch(e => {
                     this.$message.error(e || e.msg)
+                }).finally(() => {
+                    this.visible = false
                 })
             }).catch(() => {
 

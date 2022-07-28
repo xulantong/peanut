@@ -21,8 +21,8 @@ export default {
                 this.$router.push(this.originRoutes[0].children[0].fullPath)
                 return this.originRoutes[0].children
             }
-            this.$router.push(this.routes.filter(route => route.meta?.isTop == 'false')[0].children[0].fullPath)
-            return this.routes.filter(route => route.meta?.isTop == 'false')
+            this.$router.push(this.routes.filter(route => !route.meta?.isTop)[0].children[0].fullPath)
+            return this.routes.filter(route => !route.meta?.isTop)
         }
 
     },

@@ -1,10 +1,11 @@
-import {forEachTree, filterTree, changeTree, deepCloneWithJson} from "@/peanut/utils/index"
+import {forEachTree, filterTree,formatThousands, changeTree, deepCloneWithJson} from "@/peanut/utils/index"
 
 const exportsObj = {
     forEachTree,
     filterTree,
     deepCloneWithJson,
-    changeTree
+    changeTree,
+    formatThousands
 };
 
 /**

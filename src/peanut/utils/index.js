@@ -63,3 +63,18 @@ export function changeTree(targetTree, filter, callBack, children = 'children') 
     })
     return tree
 }
+/**
+ * 数值千分位格式化
+ *
+ */
+export function formatThousands(value) {
+    if (value) {
+        let prefix = value < 0 ? "-" : "";
+        value = value.toString().replace("-", "");
+        let arr = value.split(".");
+        arr[0] = arr[0].split("").reverse().map((item, i) => i && i % 3 === 0 ? item + "," : item).reverse().join("")
+        return prefix + arr.join(".")
+    }
+    return value;
+}
+

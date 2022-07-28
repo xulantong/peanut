@@ -26,7 +26,7 @@ export default {
     computed: {
         ...mapState('peanut-routes', ["routes"]),
         topRoutes() {
-            return this.routes.filter(route => route.meta?.isTop == 'true')
+            return this.routes.filter(route => route.meta?.isTop)
         }
     },
     methods: {

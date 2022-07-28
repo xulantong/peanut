@@ -5,11 +5,9 @@
 </template>
 
 <script>
-import todoList from "./views/todoList"
 
 export default {
     name: 'App',
-    components: {todoList}
 }
 </script>
 <style>
