@@ -69,7 +69,6 @@
                     <el-input v-model="formData['meta']['icon']"></el-input>
                 </el-form-item>
                 <el-form-item label="是否顶部" prop="['meta']['isTop']" style="width: fit-content">
-<!--                    <el-input v-model="formData['meta']['isTop']"></el-input>-->
                     <el-switch
                         v-model="formData['meta']['isTop']"
                         active-color="#13ce66"
@@ -168,7 +167,10 @@ export default {
                     meta: {}
                 }
                 this.saveCallBack = () => {
-                    let tree = this.changeTree(this.menuTree, (item) => item.id === this.currentId, (item) => item.children && item.children.push(this.formData));
+                    let tree = this.changeTree(this.menuTree, (item) => item.id === this.currentId, (item) => {
+                        item.children = item.children || []
+                        item.children.push(this.formData)
+                    });
                     changeMenuTree(tree[0].children).then(res => {
                         this.$message.success(res.msg)
                         this.getMenu()
