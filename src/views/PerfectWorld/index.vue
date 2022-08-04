@@ -27,14 +27,15 @@
                     <div class="mt-16 font-bolder text-bolder">{{ item.name }}</div>
                 </div>
             </div>
-            <iframe src="https://www.bilibili.com/video/BV1cg411f7ah?vd_source=823ebd5e21c853382da4d6244c9ab190"
-                    class="perfect-world-iframe-content"></iframe>
+            <iframe src="//player.bilibili.com/player.html?aid=513797643&bvid=BV1cg411f7ah&cid=782336903&page=1"
+                    class="perfect-world-iframe-content" scrolling="no" border="0" frameborder="no" framespacing="0"
+                    allowfullscreen="true"></iframe>
         </div>
         <el-dialog
             :visible.sync="visible"
             :title="currentCard.name+'详细信息'"
         >
-            <el-carousel height="500px">
+            <el-carousel height="500px" :interval="2000">
                 <el-carousel-item v-for="item in currentCard.count" :key="item + currentCard.name"
                                   class="p-flex justify-content-center align-items-center">
                     <el-image
@@ -43,7 +44,7 @@
             </el-carousel>
             <div class="font-bolder mt-16 text-bolder">具体事迹</div>
             <div v-for="(item,index) in currentCard.achievements" class="mt-8" :key="index">
-                {{ index + '、' + item }}
+                {{ index + 1 + '、' + item }}
             </div>
         </el-dialog>
     </div>
@@ -130,7 +131,7 @@ export default {
                 &:hover {
                     cursor: pointer;
                     border-radius: 4px;
-                    background-color: rgba(82, 82, 82, 0.2);
+                    background-color: rgba(6, 131, 238, 0.2);
                 }
 
             }

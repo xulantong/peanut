@@ -191,6 +191,7 @@ export default {
         },
         handleReset() {
             this.codes = []
+            this.handleSearch()
         },
         //获得选中项
         selectionLeftChange(selection) {
