@@ -7,7 +7,7 @@
                 trigger="hover"
                 :content="infoText">
                 <div slot="reference">
-                    <img style="width: 400px" src="./images/bookTitle.png">
+                    <video width="400px" src="./videos/shihao.mp4" controls loop></video>
                 </div>
             </el-popover>
             <div class="perfect-world-info-right">
