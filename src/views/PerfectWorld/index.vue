@@ -35,11 +35,11 @@
             :visible.sync="visible"
             :title="currentCard.name+'详细信息'"
         >
-            <el-carousel height="500px" :interval="2000">
+            <el-carousel :interval="2000">
                 <el-carousel-item v-for="item in currentCard.count" :key="item + currentCard.name"
                                   class="p-flex justify-content-center align-items-center">
                     <el-image
-                        :src="require(`./images/${currentCard.value}/${currentCard.value}_00${item}.png`)"></el-image>
+                        :src="require(`./images/${currentCard.value}/${currentCard.value}_00${item}.png`)" style="width: 260px ;height: 300px"></el-image>
                 </el-carousel-item>
             </el-carousel>
             <div class="font-bolder mt-16 text-bolder">具体事迹</div>

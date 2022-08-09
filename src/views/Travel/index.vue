@@ -8,7 +8,7 @@
         <div class="blob-container">
             <div class="blob-container-header">
                 <div class="item" v-for="item in blobList">
-                    <div class="text-bolder font-bold title" @click="handleClick(item)">{{ item.title }}</div>
+                    <div class="text-bolder font-bold"><span class="title" @click="handleClick(item)">{{ item.title }}</span></div>
                     <div>{{ item.description }}</div>
                     <div class="p-flex mt-4 ml-8">
                         <div :class="'type-'+item.articleType">{{ item.articleType === 1 ? '原创' : '转载' }}</div>
@@ -73,15 +73,6 @@ export default {
             transform: translate(-50%, -50%);
             opacity: 0.9;
 
-            &:hover {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                div {
-                    transform: translateZ(300px) !important;
-                }
-            }
         }
 
         //前
