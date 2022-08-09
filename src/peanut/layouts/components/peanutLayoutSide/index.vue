@@ -1,6 +1,9 @@
 <template>
     <div class="peanut-layout-side">
-        <peanut-layout-menu :routes="sideRoutes"/>
+        <peanut-layout-menu :routes="sideRoutes" :collapse="collapse"/>
+        <div class="collapse" @click="handleClickCollapse">
+            <peanut-icon :icon-name="iconName"></peanut-icon>
+        </div>
     </div>
 
 </template>
@@ -11,7 +14,9 @@ export default {
     name: "peanutLayoutSide",
     data() {
         return {
-            originRoutes: []
+            originRoutes: [],
+            iconName: "collapse-left",
+            collapse: false
         }
     },
     computed: {
@@ -30,6 +35,12 @@ export default {
         this.$baseEventBus.$on("handleClickTopMenu", (routes) => {
             this.originRoutes = routes
         })
+    },
+    methods: {
+        handleClickCollapse() {
+            this.collapse = !this.collapse
+            this.iconName = this.iconName === "collapse-left" ? "collapse-right" : "collapse-left"
+        }
     }
 }
 
@@ -37,10 +48,23 @@ export default {
 <style lang="scss" scoped>
 .peanut-layout-side {
     height: 99%;
-    width: 202px;
-    min-width: 10%;
-    border: 1px #5EADFF solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: #FFFFFF;
+
+    .collapse {
+        padding: 16px 0;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top: 2px #f0f0f0 solid;
+
+        &:hover {
+            background-color: #f0f0f0;
+        }
+    }
 }
 
 </style>

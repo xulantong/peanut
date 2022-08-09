@@ -6,6 +6,7 @@
             active-text-color="#409EFF"
             :default-active="defaultActive"
             unique-opened
+            :collapse="collapse"
         >
             <template v-for="route in routes">
                 <route-item
@@ -26,6 +27,10 @@ export default {
         mode: {
             type: String,
             default: "vertical"
+        },
+        collapse: {
+            type: Boolean,
+            default: false
         },
         routes: {
             type: Array,

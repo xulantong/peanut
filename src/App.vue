@@ -19,15 +19,16 @@ export default {
 
 body {
     position: relative;
-    height: 100vh;
-    width: 100%;
     font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", 微软雅黑, SimHei, sans-serif;
     font-size: 14px;
     overflow: hidden;
 }
 
 #app {
-    height: 100%;
-    width: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 </style>
