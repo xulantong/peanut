@@ -161,7 +161,7 @@ export default {
         &-left {
             padding: 20px;
             width: 0;
-            flex: 1;
+            flex: 0.75;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -191,11 +191,11 @@ export default {
         }
 
         &-right {
+            width: 0;
+            flex: 0.25;
             border-top: 1px solid #F5F5F5;
             background-color: #FFFFFF;
-            width: 400px;
-            overflow-x: hidden;
-            overflow-y: scroll;
+            overflow: scroll;
 
             &-carousel {
                 border-radius: 4px;

@@ -11,6 +11,7 @@ export default {
 }
 </script>
 <style>
+/*去掉默认样式*/
 * {
     margin: 0;
     padding: 0;

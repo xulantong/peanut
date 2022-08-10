@@ -49,7 +49,6 @@ export default {
 .blob {
     background-image: url("./images/universe.png");
     background-size: cover;
-    opacity: 0.9;
     display: flex;
     justify-content: center;
     align-items: center;

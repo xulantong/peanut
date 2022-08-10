@@ -1,5 +1,6 @@
 module.exports = {
     lintOnSave: false,
+    publicPath: "/peanut_ui",
     devServer: {
         proxy: {
             "/peanut": {
