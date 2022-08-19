@@ -164,7 +164,8 @@ export default {
             if (type === 'add') {
                 this.title = "新增菜单"
                 this.formData = {
-                    meta: {}
+                    meta: {},
+                    id: Math.random().toString()
                 }
                 this.saveCallBack = () => {
                     let tree = this.changeTree(this.menuTree, (item) => item.id === this.currentId, (item) => {
@@ -287,7 +288,6 @@ export default {
 
     .form {
         display: flex;
-        //justify-content: space-between;
         flex-wrap: wrap;
     }
 }

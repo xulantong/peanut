@@ -6,6 +6,7 @@
             active-text-color="#409EFF"
             :default-active="defaultActive"
             unique-opened
+            :aria-expanded="true"
             :collapse="collapse"
         >
             <template v-for="route in routes">

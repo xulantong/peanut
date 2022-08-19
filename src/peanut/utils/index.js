@@ -45,6 +45,7 @@ export function deepCloneWithJson(obj) {
     }
     return JSON.parse(JSON.stringify(obj))
 }
+
 /**
  * 根据条件修改树形数据
  *
@@ -63,6 +64,7 @@ export function changeTree(targetTree, filter, callBack, children = 'children') 
     })
     return tree
 }
+
 /**
  * 数值千分位格式化
  *
@@ -76,5 +78,34 @@ export function formatThousands(value) {
         return prefix + arr.join(".")
     }
     return value;
+}
+
+/**
+ * 防抖
+ *
+ */
+export function debounce(fn, delay = 500) {
+    let timer = null
+    return function () {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+            fn()
+        }, delay)
+    }
+}
+
+/**
+ * 节流
+ *
+ */
+export function throttle(fn, delay = 500) {
+    let timer = null
+    return function () {
+        if (timer) return;
+        timer = setTimeout(() => {
+            fn()
+            timer = null
+        }, delay)
+    }
 }
 

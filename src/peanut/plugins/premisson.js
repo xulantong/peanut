@@ -10,17 +10,17 @@ getMenuTree().then(res => {
     store.commit('peanut-routes/setRoutes', routes)
 })
 const resolveRoute = function (routes) {
-    routes.forEach(route => {
+    console.log(routes)
+    routes?.forEach(route => {
         route.component = getLayoutComponent(route.componentPath)
         delete route.componentPath
         route?.children?.forEach(item => {
             item.fullPath = (route.path || '') + '/' + (item.path || "")
             item.component = getLayoutComponent(item.componentPath)
-            if (item.children && item.children.length)
-                resolveRoute(item)
+            if (item?.children?.length)
+                resolveRoute(route?.children)
         })
     })
-
 }
 
 function getLayoutComponent(path) {

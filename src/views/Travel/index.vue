@@ -24,6 +24,7 @@
 </template>
 <script>
 import {getBlobList} from "../../api/blob";
+import Vue from "vue";
 
 export default {
     name: "Travel",

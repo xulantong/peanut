@@ -1,4 +1,4 @@
-import {forEachTree, filterTree,formatThousands, changeTree, deepCloneWithJson} from "@/peanut/utils/index"
+import {forEachTree, filterTree, formatThousands, changeTree, deepCloneWithJson, debounce, throttle} from "@/peanut/utils/index"
 import dayjs from 'dayjs'
 
 const exportsObj = {
@@ -7,7 +7,9 @@ const exportsObj = {
     deepCloneWithJson,
     changeTree,
     formatThousands,
-    dayjs
+    dayjs,
+    debounce,
+    throttle
 };
 
 /**
