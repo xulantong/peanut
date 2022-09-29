@@ -69,10 +69,13 @@ export default {
                             showClose: false,
                             duration: 500
                         })
-                        this.$router.replace("/test/todolist").catch(()=>{})
+                        this.$router.replace("/test/todolist").catch(() => {
+                        })
+                        this.$store.commit("peanut-user/setAccessToken", res.result.token || '')
+                        localStorage.setItem("token",res.result.token || '')
                     }).catch(e => {
                         this.$message.warning("登陆失败")
-                    }).catch(()=>{
+                    }).catch(() => {
                         this.loading = false
                     })
                 } else {
