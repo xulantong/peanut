@@ -9,6 +9,8 @@ import {getMenuTree} from "../api/sys";
 
 router.beforeResolve((to, from, next) => {
     //todo  token检验
+    console.log(to)
+    document.title = to.meta.title || "后台解决方案"
     next()
 })
 
@@ -26,6 +28,7 @@ const resolveRoute = function (routes) {
         delete route.componentPath
         route?.children?.forEach(item => {
             item.fullPath = (route.path || '') + '/' + (item.path || "")
+            item.meta.title = item.text
             item.component = getLayoutComponent(item.componentPath)
             if (item?.children?.length)
                 resolveRoute(route?.children)

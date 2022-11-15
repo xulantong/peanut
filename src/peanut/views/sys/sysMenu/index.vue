@@ -183,6 +183,7 @@ export default {
             } else {
                 this.title = "编辑菜单"
                 this.formData = this.$deepCloneWithJson(this.selection[0])
+                this.formData.meta.title = this.formData.text
                 this.saveCallBack = () => {
                     let tree = this.changeTree(this.menuTree, (item) => item.id === this.formData.id, (item) => Object.assign(item, this.formData));
                     changeMenuTree(tree[0].children).then(res => {
