@@ -26,7 +26,11 @@ export default {
                 this.$router.push(this.originRoutes[0].children[0].fullPath)
                 return this.originRoutes[0].children
             }
-            this.$router.push(this.routes.filter(route => !route.meta?.isTop)[0].children[0].fullPath)
+            let path = window.location.href.split('/')[5]
+            if (this.routes.find(item => item.path.includes(path))?.meta?.isTop) {
+                return this.routes.filter(route => route.meta?.isTop)[0].children
+            }
+
             return this.routes.filter(route => !route.meta?.isTop)
         }
 
@@ -34,6 +38,7 @@ export default {
     mounted() {
         this.$baseEventBus.$on("handleClickTopMenu", (routes) => {
             this.originRoutes = routes
+            this.$router.push(this.routes.filter(route => !route.meta?.isTop)[0].children[0].fullPath)
         })
     },
     methods: {
