@@ -8,15 +8,18 @@ import {getMenuTree} from "../api/sys";
  * */
 
 router.beforeResolve((to, from, next) => {
-    //todo  token检验
     if (!localStorage.getItem('token') && to.path !== '/') {
         store.commit('peanut-user/setAccessToken', '')
         router.replace({path: '/'})
     }
-    document.title = to.meta.title || "后台解决方案"
+
+    document.title = getPageTitle(to)
     next()
 })
 
+function getPageTitle(to) {
+    return to.matched.map(item => item.meta.title).join(' - ')
+}
 
 let routes = []
 getMenuTree().then(res => {
@@ -28,6 +31,7 @@ getMenuTree().then(res => {
 const resolveRoute = function (routes) {
     routes?.forEach(route => {
         route.component = getLayoutComponent(route.componentPath)
+        route.meta.title = route.text
         delete route.componentPath
         route?.children?.forEach(item => {
             item.fullPath = (route.path || '') + '/' + (item.path || "")

@@ -75,7 +75,6 @@ export default {
     },
     mounted() {
         Promise.allSettled([getCardData(),getLineData(),getBarData(),getSelectData()]).then(res=>{
-            console.log(res)
             const [result1,result2,result3,result4] = res
             this.cardList = result1.value.result
             this.lineData = result2.value.result
