@@ -49,6 +49,10 @@ instance.interceptors.response.use((response) => {
     if (!code || [200].includes(code)) {
         return data
     } else {
+        if (code === 401) {
+            localStorage.setItem('token', '')
+            return Promise.reject('请重新登陆')
+        }
         return Promise.reject(msg || "error")
     }
 }, (err) => {

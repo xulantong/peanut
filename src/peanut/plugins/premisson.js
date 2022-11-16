@@ -9,7 +9,10 @@ import {getMenuTree} from "../api/sys";
 
 router.beforeResolve((to, from, next) => {
     //todo  token检验
-    console.log(to)
+    if (!localStorage.getItem('token') && to.path !== '/') {
+        store.commit('peanut-user/setAccessToken', '')
+        router.replace({path: '/'})
+    }
     document.title = to.meta.title || "后台解决方案"
     next()
 })
