@@ -1,0 +1,76 @@
+/**
+ * @description 全局主题变量配置
+ */
+/* stylelint-disable */
+@charset "utf-8";
+//框架默认主题色
+$base-color-default: #0087ff !default;
+//默认层级
+$base-z-index: 999 !default;
+//顶部栏背景色
+$top-bar-background: #11235D !default;
+//菜单背景色
+$base-menu-background: #FFFFFF !default;
+//菜单文字颜色
+$base-menu-color: rgba(0, 0, 0, 0.85) !default;
+//菜单选中文字颜色
+$base-menu-color-active: #0087FF !default;
+//菜单选中样式表
+$base-menu-styles-active: (border-right: 3px solid #0077ff) !default;
+//菜单选中背景色
+$base-menu-background-active: rgba(0, 135, 255, 0.1) !default;
+//顶部菜单文字颜色
+$top-menu-color: rgba(255, 255, 255, 0.65) !default;
+//顶部菜单选中文字颜色
+$top-menu-color-active: #FFFFFF !default;
+//顶部菜单选中背景色
+$top-menu-background-active: $base-color-default !default;
+//菜单栏阴影
+$base-menu-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1), 0px 0px 24px 0px rgba(0, 0, 0, 0.02);
+//标题颜色
+$base-title-color: #fff !default;
+//字体大小配置
+$base-font-size-small: 12px !default;
+$base-font-size-default: 14px !default;
+$base-font-size-big: 16px !default;
+$base-font-size-bigger: 18px !default;
+$base-font-size-max: 22px !default;
+
+$base-font-color: #606266 !default;
+$base-color-blue: $base-color-default !default;
+$base-color-green: #52C41B !default;
+$base-color-white: #fff !default;
+$base-color-black: #000 !default;
+$base-color-yellow: #FFB048 !default;
+$base-color-orange: #FFA836 !default;
+$base-color-red: #FF393C !default;
+$base-color-gray: rgba(0, 0, 0, 0.65) !default;
+$base-main-width: 1279px !default;
+$base-border-radius: 4px !default;
+$base-border-color: #d9d9d9 !default;
+//输入框高度
+$base-input-height: 32px !default;
+//默认padding
+$base-padding: 8px !default;
+//默认阴影
+$base-box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08) !default;
+//横向布局时top-bar、logo、一级菜单的高度
+$base-top-bar-height: 50px !default;
+//纵向布局时logo的高度
+$base-logo-height: 50px !default;
+//顶部nav-bar的高度
+$base-nav-bar-height: 50px !default;
+//顶部多标签页tabs-bar的高度
+$base-tabs-bar-height: 40px !default;
+//顶部多标签页tabs-bar中每一个item的高度
+$base-tag-item-height: 40px !default;
+//菜单li标签的高度
+$base-menu-item-height: 40px !default;
+//左侧导航未折叠时的宽度
+$base-left-menu-width: 208px !default;
+//左侧导航已折叠时的宽度
+$base-left-menu-width-min: 40px !default;
+//默认动画
+$base-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), border 0s, background 0s, color 0s, font-size 0s !default;
+//默认动画长
+$base-transition-time: 0.3s !default;

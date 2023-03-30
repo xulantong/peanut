@@ -6,9 +6,10 @@ import 'element-ui/lib/theme-chalk/index.css';
 import router from './peanut/router'
 import * as echarts from 'echarts'
 Vue.prototype.$echarts = echarts
- // Vue.use(ElementUI,{ size: 'mini' })
-
  import "./peanut"
+
+ Vue.use(ElementUI,{ size: 'mini' })
+
 
 
 Vue.config.productionTip = false
