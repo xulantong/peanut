@@ -49,6 +49,7 @@
                             label="事项类型"
                             show-overflow-tooltip
                             width="150"
+                            :filters="[{text:'1',value:1}]"
                             prop="workName"
                         />
                         <el-table-column
