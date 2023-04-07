@@ -31,6 +31,7 @@
             :header-cell-style="headerCellStyle"
             @selection-change="handleSelectionChange"
             @row-click="handleRowClick"
+            @filter-change="filterChange"
         >
             <slot name="columns"/>
             <div slot="empty">
@@ -134,6 +135,31 @@ export default {
             if (options?.clearFilter) {
                 this.clearFilter();
             }
+            this.loadData();
+        },
+        getFilters(params, type = 'select') {
+            let key = Object.keys(params)[0]
+            if (this.tableParams.find(item => item.name = key)) {
+                return this.tableParams;
+            }
+            let filter = {
+                key,
+                values: params[key],
+                type: type
+            }
+            this.tableParams.push(filter)
+            return this.tableParams
+        },
+        filterChange(params) {
+            let filters = this.getFilters(params)
+            this.tableParams = filters.filter(item => item.values.length).map(item => {
+                return {
+                    name: item.key,
+                    value: item.values,
+                    expression: item.type === "select" ? "eq" : "like"
+                };
+            })
+            this.currentPage = 1;
             this.loadData();
         },
         clearFilter(columnKeys) {

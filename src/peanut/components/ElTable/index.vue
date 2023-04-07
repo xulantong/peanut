@@ -203,7 +203,7 @@ import TableBody from './table-body';
 import TableHeader from './table-header';
 import TableFooter from './table-footer';
 import {parseHeight} from './util';
-import TableScrollbar from "./table-scrollbar";
+import TableScrollbar from "@/peanut/components/ElTable/table-scrollbar";
 
 let tableIdSeed = 1;
 
@@ -403,6 +403,7 @@ export default {
             this.store.commit('sort', {prop, order});
         },
         toggleAllSelection() {
+            console.log('????')
             this.store.commit('toggleAllSelection');
         }
     },

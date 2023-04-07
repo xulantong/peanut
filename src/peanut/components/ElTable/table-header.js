@@ -78,70 +78,83 @@ export default {
                 cellpadding="0"
                 border="0">
                 <colgroup>
-                    { this.columns.map(column => <col name={column.id} key={column.id}/>) }
-                    { this.hasGutter ? <col name="gutter"/> : null}
+                    {this.columns.map(column => <col name={column.id} key={column.id}/>)}
+                    {this.hasGutter ? <col name="gutter"/> : null}
                 </colgroup>
                 <thead class={[{'is-group': isGroup, 'has-gutter': this.hasGutter}]}>
-                    {
-                        this._l(columnRows, (columns, rowIndex) =>
-                            <tr
-                                style={this.getHeaderRowStyle(rowIndex)}
-                                class={this.getHeaderRowClass(rowIndex)}>
-                                {
-                                    columns.map((column, cellIndex) =>
-                                        <th
-                                            colspan={column.colSpan}
-                                            rowspan={column.rowSpan}
-                                            on-mousemove={($event) => this.handleMouseMove($event, column)}
-                                            on-mouseout={this.handleMouseOut}
-                                            on-mousedown={($event) => this.handleMouseDown($event, column)}
-                                            on-click={($event) => this.handleHeaderClick($event, column)}
-                                            on-contextmenu={($event) => this.handleHeaderContextMenu($event, column)}
-                                            style={this.getHeaderCellStyle(rowIndex, cellIndex, columns, column)}
-                                            class={this.getHeaderCellClass(rowIndex, cellIndex, columns, column)}
-                                            key={column.id}>
-                                            <div class={['cell', column.filteredValue && column.filteredValue.length > 0 ? 'highlight' : '', column.labelClassName]}>
+                {
+                    this._l(columnRows, (columns, rowIndex) =>
+                        <tr
+                            style={this.getHeaderRowStyle(rowIndex)}
+                            class={this.getHeaderRowClass(rowIndex)}>
+                            {
+                                columns.map((column, cellIndex) =>
+                                    <th
+                                        colspan={column.colSpan}
+                                        rowspan={column.rowSpan}
+                                        on-mousemove={($event) => this.handleMouseMove($event, column)}
+                                        on-mouseout={this.handleMouseOut}
+                                        on-mousedown={($event) => this.handleMouseDown($event, column)}
+                                        on-click={($event) => this.handleHeaderClick($event, column)}
+                                        on-contextmenu={($event) => this.handleHeaderContextMenu($event, column)}
+                                        style={this.getHeaderCellStyle(rowIndex, cellIndex, columns, column)}
+                                        class={this.getHeaderCellClass(rowIndex, cellIndex, columns, column)}
+                                        key={column.id}>
+                                        <div
+                                            class={['cell', column.filteredValue && column.filteredValue.length > 0 ? 'highlight' : '', column.labelClassName]}>
                                                 <span class="cell-text">
                                                 {
-                                                    column.renderHeader ? column.renderHeader.call(this._renderProxy, h, {column, $index: cellIndex, store: this.store, _self: this.$parent.$vnode.context}) : column.label
+                                                    column.renderHeader ? column.renderHeader.call(this._renderProxy, h, {
+                                                        column,
+                                                        $index: cellIndex,
+                                                        store: this.store,
+                                                        _self: this.$parent.$vnode.context
+                                                    }) : column.label
                                                 }
                                                 </span>
-                                                {
-                                                    column.sortable ?
+                                            {
+                                                column.sortable ?
                                                     <span
                                                         class="caret-wrapper"
                                                         on-click={($event) => this.handleSortClick($event, column)}>
-                                                        <svg class="svg-icon sort-caret ascending" viewBox="0 0 772 385" xmlns="http://www.w3.org/2000/svg" version="1.1" on-click={($event) => this.handleSortClick($event, column, 'ascending')}>
-                                                            <path d="m553.872,134.504l-112.832,-111.36a76.8,76.8 0 0 0 -55.04,-22.144a76.8,76.8 0 0 0 -55.04,22.4l-311.296,307.2c-30.528,30.08 -19.968,54.4 22.72,54.4l687.424,0c42.88,0 53.504,-24 22.784,-54.4l-198.848,-196.096l0.128,0z"/>
+                                                        <svg class="svg-icon sort-caret ascending" viewBox="0 0 772 385"
+                                                             xmlns="http://www.w3.org/2000/svg" version="1.1"
+                                                             on-click={($event) => this.handleSortClick($event, column, 'ascending')}>
+                                                            <path
+                                                                d="m553.872,134.504l-112.832,-111.36a76.8,76.8 0 0 0 -55.04,-22.144a76.8,76.8 0 0 0 -55.04,22.4l-311.296,307.2c-30.528,30.08 -19.968,54.4 22.72,54.4l687.424,0c42.88,0 53.504,-24 22.784,-54.4l-198.848,-196.096l0.128,0z"/>
                                                         </svg>
-                                                        <svg class="svg-icon svg-icon-flip-vertical sort-caret descending" viewBox="0 0 772 385" xmlns="http://www.w3.org/2000/svg" version="1.1" on-click={($event) => this.handleSortClick($event, column, 'descending')}>
-                                                            <path d="m553.872,134.504l-112.832,-111.36a76.8,76.8 0 0 0 -55.04,-22.144a76.8,76.8 0 0 0 -55.04,22.4l-311.296,307.2c-30.528,30.08 -19.968,54.4 22.72,54.4l687.424,0c42.88,0 53.504,-24 22.784,-54.4l-198.848,-196.096l0.128,0z"/>
+                                                        <svg
+                                                            class="svg-icon svg-icon-flip-vertical sort-caret descending"
+                                                            viewBox="0 0 772 385" xmlns="http://www.w3.org/2000/svg"
+                                                            version="1.1"
+                                                            on-click={($event) => this.handleSortClick($event, column, 'descending')}>
+                                                            <path
+                                                                d="m553.872,134.504l-112.832,-111.36a76.8,76.8 0 0 0 -55.04,-22.144a76.8,76.8 0 0 0 -55.04,22.4l-311.296,307.2c-30.528,30.08 -19.968,54.4 22.72,54.4l687.424,0c42.88,0 53.504,-24 22.784,-54.4l-198.848,-196.096l0.128,0z"/>
                                                         </svg>
                                                     </span>
                                                     : null
-                                                }
-                                                {
-                                                    column.filterable ?
+                                            }
+                                            {
+                                                column.filterable ?
                                                     <span
                                                         class={["el-table__column-filter-trigger", column.filterOpened ? 'active' : '']}
                                                         on-click={($event) => this.handleFilterClick($event, column)}>
                                                         {
                                                             column.filterType === "select" ?
-                                                                <peanut-icon iconName="hobby"/>
-                                                                :
-                                                                <peanut-icon iconName="hobby"/>
+                                                                '>>>'
+                                                                : '<<<'
                                                         }
                                                     </span>
                                                     : null
-                                                }
-                                            </div>
-                                        </th>
-                                    )
-                                }
-                                { this.hasGutter ? <th class="gutter"></th> : null }
-                            </tr>
-                        )
-                    }
+                                            }
+                                        </div>
+                                    </th>
+                                )
+                            }
+                            {this.hasGutter ? <th class="gutter"></th> : null}
+                        </tr>
+                    )
+                }
                 </thead>
             </table>
         );
@@ -286,7 +299,7 @@ export default {
         },
 
         toggleAllSelection(event) {
-            event.stopPropagation();
+            // event.stopPropagation()
             this.store.commit('toggleAllSelection');
         },
 

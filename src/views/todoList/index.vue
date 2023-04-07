@@ -19,12 +19,12 @@
                 </el-row>
             </div>
             <div class="todo-list-content-table mt-8">
-                <peanut-remote-table
+                <disco-remote-table
                     show-tool-bar
                     ref="table"
                     class="h-100"
                     :list-func="getList"
-                    @selectionChange="selectionChange"
+                    @selection-change="selectionChange"
                 >
                     <div slot="toolLeft" class="mark-title">事项列表</div>
                     <div slot="toolRight" class="mr-8 p-flex justify-content-center align-items-center">
@@ -49,7 +49,8 @@
                             label="事项类型"
                             show-overflow-tooltip
                             width="150"
-                            :filters="[{text:'1',value:1}]"
+                            :filters="[{text:'1',value:1},{text:'1',value:2},{text:'1',value:3},{text:'1',value:4},{text:'1',value:5},{text:'1',value:6},{text:'1',value:7}]"
+                            column-key="workName"
                             prop="workName"
                         />
                         <el-table-column
@@ -78,7 +79,7 @@
                             </template>
                         </el-table-column>
                     </template>
-                </peanut-remote-table>
+                </disco-remote-table>
             </div>
         </div>
         <div class="todo-list-footer mt-8 px-8 text-bold p-flex align-items-center justify-content-between">

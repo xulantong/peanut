@@ -5,8 +5,7 @@
             v-clickoutside="handleOutsideClick"
             v-show="showPopper">
             <div class="el-table-filter__content">
-                <el-input v-if="column.filterType === 'search'" @keyup.native.enter="handleSearchEnter" clearable
-                          v-model="filterValue" :placeholder="'搜索 ' + column.label"/>
+                <el-input v-if="column.filterType === 'search'" @keyup.native.enter="handleSearchEnter" clearable v-model="filterValue" :placeholder="'搜索 ' + column.label"/>
                 <el-date-picker
                     v-else-if="column.filterType === 'dateSearch'"
                     size="mini"
@@ -18,25 +17,21 @@
                     :placeholder="'搜索 ' + column.label">
                 </el-date-picker>
                 <div v-else>
-                    <div key="loader" v-if="filterLoading" style="height: 100px" v-peanut-loading="filterLoading"/>
-                    <div key="no-data" style="text-align: center"
-                         v-else-if="!(filterLoading || (cachedFilters && cachedFilters.length))">
-                        <!--                        <img src="~@/disco/assets/no_data.png" width="100"/>-->
-                        <peanut-empty :imgSize="60"/>
-<!--                        <div>暂无数据</div>-->
+                    <div key="loader" v-if="filterLoading" style="height: 100px" v-disco-loading="filterLoading"/>
+                    <div key="no-data" style="text-align: center" v-else-if="!(filterLoading || (cachedFilters && cachedFilters.length))">
+                        <peanut-empty></peanut-empty>
+                        <div>暂无数据</div>
                     </div>
                     <div key="selections" v-else>
-                        <el-input v-if="cachedFilters.length > 5" key="search" clearable v-model="searchKey"
-                                  placeholder="搜索"/>
-                        <el-scrollbar style="margin-top: 8px;border-bottom: 1px solid #DDDDDD"
-                                      wrap-class="el-table-filter__wrap">
+                        <el-input v-if="cachedFilters.length > 5" key="search" clearable v-model="searchKey" placeholder="搜索"/>
+                        <el-scrollbar style="margin-top: 8px;border-bottom: 1px solid #DDDDDD" wrap-class="el-table-filter__wrap">
                             <ul class="el-table-filter__list" v-if="!multiple">
                                 <template v-for="filter in filters">
                                     <li class="el-table-filter__list-item"
                                         :label="filter.title"
                                         :class="{ 'is-active': isActive(filter) }"
                                         @click="filterValue = filter.value">
-                                        {{ filter.text || filter.title || filter.label }}
+                                        {{filter.text || filter.title || filter.label}}
                                     </li>
                                 </template>
                             </ul>
@@ -44,7 +39,7 @@
                                 <template v-for="filter in filters">
                                     <el-checkbox
                                         :label="filter.value">
-                                        {{ filter.text || filter.title || filter.label }}
+                                        {{filter.text || filter.title || filter.label}}
                                     </el-checkbox>
                                 </template>
                             </el-checkbox-group>
@@ -53,14 +48,14 @@
                 </div>
             </div>
             <div class="el-table-filter-bottom">
-                <el-button plain size="mini" @click="handleReset">{{ t('el.table.resetFilter') }}</el-button>
+                <el-button plain size="mini" @click="handleReset">{{t('el.table.resetFilter')}}</el-button>
                 <el-button
                     size="mini"
                     type="primary"
                     @click="handleConfirm"
                     :class="{ 'is-disabled': searchDisabled }"
                     :disabled="searchDisabled">
-                    {{ t('el.table.confirmFilter') }}
+                    {{t('el.table.confirmFilter')}}
                 </el-button>
             </div>
         </div>
@@ -108,7 +103,7 @@ export default {
         },
 
         handleConfirm() {
-            if (["search", "dateSearch"].includes(this.column.filterType)) {
+            if (["search","dateSearch"].includes(this.column.filterType)) {
                 this.handleSelect(this.filterValue)
                 return;
             }

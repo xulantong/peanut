@@ -1,12 +1,12 @@
 <template>
     <div class="peanut-layout-main">
-        <keep-alive >
-            <router-view class="router-container" />
+        <keep-alive>
+            <router-view class="router-container"/>
         </keep-alive>
-
     </div>
 </template>
 <script>
+
 export default {
     name: "peanutLayoutMain"
 }
@@ -18,7 +18,8 @@ export default {
     margin-left: 8px;
     height: 98%;
     border-radius: 4px;
-    .router-container{
+
+    .router-container {
         min-height: 100%;
     }
 }
