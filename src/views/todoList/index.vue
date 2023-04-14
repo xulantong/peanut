@@ -22,8 +22,10 @@
                 <disco-remote-table
                     show-tool-bar
                     ref="table"
-                    class="h-100"
+                    class="h-100 todo-table"
                     :list-func="getList"
+                    row-key="id"
+                    @data-loaded="dataLoaded"
                     @selection-change="selectionChange"
                 >
                     <div slot="toolLeft" class="mark-title">事项列表</div>
@@ -43,6 +45,9 @@
                     </div>
                     <template slot="columns">
                         <el-table-column type="selection" width="40" fixed>
+                        </el-table-column>
+                        <el-table-column width="40">
+                            <span class="drag-icon"><el-icon class="el-icon-menu "/></span>
                         </el-table-column>
                         <el-table-column type="index" width="60" label="序号" fixed></el-table-column>
                         <el-table-column
@@ -102,6 +107,7 @@
 import TodoCard from "./components/todoCard";
 import AppendAndEdit from "./components/appendAndEdit";
 import dayjs from "dayjs";
+import Sortable from 'sortablejs'
 import request from "../../peanut/utils/request";
 
 let timer = null
@@ -137,6 +143,7 @@ export default {
             dialogTitle: "",
             currentTime: "",
             selection: [],
+            sortable: null
         }
     },
     mounted() {
@@ -162,6 +169,29 @@ export default {
             }
             return request.post("/todoList/getList", params)
         },
+        dataLoaded() {
+            this.$nextTick(() => {
+                this.initSortable()
+            })
+        },
+        initSortable() {
+            if (this.sortable) {
+                return;
+            }
+            let el = document.querySelector(".todo-table .el-table__body-wrapper tbody");
+            el && (this.sortable = Sortable.create(el, {
+                //  指定父元素下可被拖拽的子元素
+                draggable: ".el-table__row",
+                // css选择器的字符串 若设置该值，则表示只有按住拖动手柄才能使列表单元进行拖动
+                handle: ".drag-icon",
+                onEnd: ({newIndex, oldIndex}) => {
+                    this.updateTable(newIndex, oldIndex);
+                }
+            }));
+        },
+        updateTable(oldIndex, newIndex) {
+            console.log(oldIndex, newIndex)
+        },
         //点击卡片回调
         handleCardClick(val) {
             this.activateCard = val
@@ -176,7 +206,7 @@ export default {
             request.post("/todoList/delete", {ids: this.selection.map(item => item.id)}).then(res => {
                 this.$message.success(res.result)
                 this.$refs.table.reload()
-                this.getCard()
+
             })
         },
         //删除所有已完成
@@ -260,6 +290,10 @@ export default {
     &-footer {
         background-color: white;
         height: 48px;
+    }
+
+    .drag-icon {
+        cursor: grab;
     }
 }
 </style>
