@@ -66,12 +66,9 @@ export default {
             }));
         },
         updateTable(newIndex, oldIndex) {
-            console.log(newIndex, oldIndex)
-            console.log(this.listData.map(item => item.id))
             let temp = this.listData[oldIndex]
             this.listData.splice(oldIndex, 1)
             this.listData.splice(newIndex, 0, temp)
-            console.log(this.listData.map(item => item.id))
         },
     }
 }
